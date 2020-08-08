@@ -1,0 +1,45 @@
+EXTRACT THE FILE 
+	
+==>What is the md5 hashsum of the encrypted note1 file?
+
+
+─[✗]─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY12]
+└──╼ #ls
+flag  note1.txt  note1.txt.gpg  note2_encrypted.txt  note2.txt  private.key
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY12]
+└──╼ #md5sum note1.txt
+5ed56327d3e5e08822edfed0ec6fcfe6  note1.txt
+
+==>Where was elf Bob told to meet Alice?
+
+
+
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY12]
+└──╼ #gpa note1.txt.gpg
+Gtk-Message: 00:51:52.998: Failed to load module "atk-bridge"
+
+
+
+
+
+
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY12]
+└──╼ #cat note1.txt
+I will meet you outside Santa's Grotto at 5pm!
+
+==>	Decrypt note2 and obtain the flag!
+
+READ THE SUPPORTING MATERIAL:)
+
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY12]
+└──╼ # openssl rsautl -decrypt -inkey private.key -in note2_encrypted.txt -out note2.txt
+Enter pass phrase for private.key:
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY12]
+└──╼ #ls
+flag  note1.txt  note1.txt.gpg  note2_encrypted.txt  note2.txt  private.key
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY12]
+└──╼ #cat note2.txt
+THM{ed9ccb6802c5d0f905ea747a310bba23}
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY12]
+└──╼ #
+

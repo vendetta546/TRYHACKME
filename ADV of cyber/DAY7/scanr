@@ -1,0 +1,57 @@
+┌─[kevin@parrot]─[~/THM/ADV of cyber/DAY7]
+└──╼ $nmap 10.10.239.210 -sT
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-07-31 18:39 IST
+Nmap scan report for 10.10.239.210
+Host is up (0.37s latency).
+Not shown: 997 closed ports
+PORT    STATE SERVICE
+22/tcp  open  ssh
+111/tcp open  rpcbind
+999/tcp open  garcon
+
+Nmap done: 1 IP address (1 host up) scanned in 37.24 seconds
+┌─[kevin@parrot]─[~/THM/ADV of cyber/DAY7]
+└──╼ $nmap 10.10.239.210 -A
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-07-31 18:41 IST
+Nmap scan report for 10.10.239.210
+Host is up (0.20s latency).
+Not shown: 997 closed ports
+PORT    STATE SERVICE VERSION
+22/tcp  open  ssh     OpenSSH 7.4 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 ae:8b:c0:54:be:a9:a1:41:22:62:76:0d:45:18:6c:26 (RSA)
+|   256 ff:d8:5d:5b:39:ed:53:dc:6b:87:ef:50:9e:26:d9:be (ECDSA)
+|_  256 fa:b7:1f:0b:8b:fb:7e:9b:a5:0d:33:25:27:72:47:79 (ED25519)
+111/tcp open  rpcbind 2-4 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|   100000  3,4          111/udp6  rpcbind
+|   100024  1          37980/udp   status
+|   100024  1          40383/tcp   status
+|   100024  1          43465/tcp6  status
+|_  100024  1          46623/udp6  status
+999/tcp open  http    SimpleHTTPServer 0.6 (Python 3.6.8)
+|_http-server-header: SimpleHTTP/0.6 Python/3.6.8
+|_http-title: Directory listing for /
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 67.41 seconds
+┌─[kevin@parrot]─[~/THM/ADV of cyber/DAY7]
+└──╼ $nmap 10.10.239.210 -sV
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-07-31 18:45 IST
+Nmap scan report for 10.10.239.210
+Host is up (0.36s latency).
+Not shown: 997 closed ports
+PORT    STATE SERVICE VERSION
+22/tcp  open  ssh     OpenSSH 7.4 (protocol 2.0)
+111/tcp open  rpcbind 2-4 (RPC #100000)
+999/tcp open  http    SimpleHTTPServer 0.6 (Python 3.6.8)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 57.24 seconds
+┌─[kevin@parrot]─[~/THM/ADV of cyber/DAY7]
+└──╼ $
+

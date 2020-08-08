@@ -1,0 +1,30 @@
+─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY14]
+└──╼ #curl -s http://advent-bucket-one.s3.amazonaws.com/
+<?xml version="1.0" encoding="UTF-8"?>
+<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Name>advent-bucket-one</Name><Prefix></Prefix><Marker></Marker><MaxKeys>1000</MaxKeys><IsTruncated>false</IsTruncated><Contents><Key>employee_names.txt</Key><LastModified>2019-12-14T15:53:25.000Z</LastModified><ETag>&quot;e8d2d18588378e0ee0b27fa1b125ad58&quot;</ETag><Size>7</Size><StorageClass>STANDARD</StorageClass></Contents></ListBucketResult>┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY14]
+└──╼ #ls
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY14]
+└──╼ #ls -la
+total 8
+drwxr-xr-x  2 kevin kevin 4096 Aug  9 12:04 .
+drwxr-xr-x 12 kevin kevin 4096 Aug  9 12:04 ..
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY14]
+└──╼ #wget  http://advent-bucket-one.s3.amazonaws.com/employee_names.txt
+--2020-08-09 13:17:58--  http://advent-bucket-one.s3.amazonaws.com/employee_names.txt
+Resolving advent-bucket-one.s3.amazonaws.com (advent-bucket-one.s3.amazonaws.com)... 52.218.41.42
+Connecting to advent-bucket-one.s3.amazonaws.com (advent-bucket-one.s3.amazonaws.com)|52.218.41.42|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 7 [text/plain]
+Saving to: ‘employee_names.txt’
+
+employee_names.txt  100%[===================>]       7  --.-KB/s    in 0s      
+
+2020-08-09 13:17:59 (479 KB/s) - ‘employee_names.txt’ saved [7/7]
+
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY14]
+└──╼ #ls
+employee_names.txt
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY14]
+└──╼ #cat employee_names.txt
+mcchef
+

@@ -1,0 +1,99 @@
+─[root@parrot]─[~]
+└──╼ #nmap -Pn -sV -p- -vv 10.10.188.45
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-08 01:35 IST
+NSE: Loaded 45 scripts for scanning.
+Initiating Parallel DNS resolution of 1 host. at 01:35
+Completed Parallel DNS resolution of 1 host. at 01:35, 0.22s elapsed
+Initiating SYN Stealth Scan at 01:35
+Scanning 10.10.188.45 [65535 ports]
+Discovered open port 80/tcp on 10.10.188.45
+Discovered open port 3389/tcp on 10.10.188.45
+SYN Stealth Scan Timing: About 2.71% done; ETC: 01:54 (0:18:33 remaining)
+SYN Stealth Scan Timing: About 10.13% done; ETC: 01:45 (0:09:01 remaining)
+SYN Stealth Scan Timing: About 19.78% done; ETC: 01:43 (0:06:09 remaining)
+SYN Stealth Scan Timing: About 27.95% done; ETC: 01:43 (0:05:12 remaining)
+SYN Stealth Scan Timing: About 39.37% done; ETC: 01:43 (0:04:48 remaining)
+SYN Stealth Scan Timing: About 45.79% done; ETC: 01:43 (0:04:17 remaining)
+SYN Stealth Scan Timing: About 52.84% done; ETC: 01:43 (0:03:40 remaining)
+SYN Stealth Scan Timing: About 59.25% done; ETC: 01:43 (0:03:11 remaining)
+SYN Stealth Scan Timing: About 65.66% done; ETC: 01:43 (0:02:41 remaining)
+SYN Stealth Scan Timing: About 71.84% done; ETC: 01:43 (0:02:16 remaining)
+SYN Stealth Scan Timing: About 80.56% done; ETC: 01:43 (0:01:31 remaining)
+SYN Stealth Scan Timing: About 89.62% done; ETC: 01:43 (0:00:47 remaining)
+Completed SYN Stealth Scan at 01:43, 462.87s elapsed (65535 total ports)
+Initiating Service scan at 01:43
+Scanning 2 services on 10.10.188.45
+Completed Service scan at 01:43, 6.63s elapsed (2 services on 1 host)
+NSE: Script scanning 10.10.188.45.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 01:43
+Completed NSE at 01:43, 1.64s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 01:43
+Completed NSE at 01:43, 1.63s elapsed
+Nmap scan report for 10.10.188.45
+Host is up, received user-set (0.22s latency).
+Scanned at 2020-08-08 01:35:54 IST for 473s
+Not shown: 65533 filtered ports
+Reason: 65533 no-responses
+PORT     STATE SERVICE       REASON          VERSION
+80/tcp   open  http          syn-ack ttl 127 Microsoft IIS httpd 10.0
+3389/tcp open  ms-wbt-server syn-ack ttl 127 Microsoft Terminal Services
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 474.60 seconds
+           Raw packets sent: 131370 (5.780MB) | Rcvd: 14202 (2.601MB)
+┌─[
+
+
+
+
+[/home/kevin/THM/ADV of cyber/DAY13]
+└──╼ #gobuster dir -u http://10.10.188.45 -w '/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt' 
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.188.45
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2020/08/08 01:41:15 Starting gobuster
+===============================================================
+/retro (Status: 301)
+Progress: 15603 / 220561 (7.07%)^C
+[!] Keyboard interrupt detected, terminating.
+===============================================================
+2020/08/08 01:49:47 Finished
+===============================================================
+┌─[root@parrot]─[/home/kevin/THM/ADV of cyber/DAY13]
+└──╼ #
+
+
+C:\Windows\System32>whoami
+nt authority\system
+
+C:\Windows\System32>cd c:\Users\administrator\desktop
+
+c:\Users\Administrator\Desktop>dir
+ Volume in drive C has no label.
+ Volume Serial Number is 7443-948C
+
+ Directory of c:\Users\Administrator\Desktop
+
+05/22/2020  02:51 PM    <DIR>          .
+05/22/2020  02:51 PM    <DIR>          ..
+04/23/2020  10:34 AM                31 root.txt
+               1 File(s)             31 bytes
+               2 Dir(s)  31,515,254,784 bytes free
+
+
+c:\Users\Administrator\Desktop>more root.txt
+THM{COIN_OPERATED_EXPLOITATION}
+
+c:\Users\Administrator\Desktop>
